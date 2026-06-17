@@ -65,7 +65,7 @@ init_nicehash_database()
 if 'logged_in' not in st.session_state: st.session_state.logged_in = False
 if 'current_user' not in st.session_state: st.session_state.current_user = ""
 if 'active_tab' not in st.session_state: st.session_state.active_tab = "Home"
-if 'popup_shown' not in st.session_state: st.session_state.popup_shown = False
+if 'show_news_announcement' not in st.session_state: st.session_state.show_news_announcement = True
 
 # Real-time Rotating Fake Log Pools
 emails_pool = ['m***7a@gmail.com', 'k***99@yahoo.com', 's***_khan@live.com', 'r***x7@hotmail.com', 'a***11@gmail.com']
@@ -107,7 +107,7 @@ html, body, .stApp { background-color: #12161a !important; color: #ffffff !impor
 
 /* Grid Quick Icons Actions */
 .grid-icons-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-bottom: 18px; }
-.icon-box-item { background: #222933; border-radius: 12px; width: 50px; height: 50px; line-height: 50px; font-size: 20px; margin: 0 auto 4px auto; border: 1px solid #2d3642; color: #ff6a00; }
+.icon-box-item { background: #222933; border-radius: 12px; width: 50px; height: 50px; line-height: 50px; font-size: 20px; margin: 0 auto 4px auto; border: 1px solid #2d3642; color: #ff6a00; cursor: pointer; }
 .icon-label-item { font-size: 11px; font-weight: 500; color: #cbd5e0; }
 
 /* Marquee Scrolling Box */
@@ -125,16 +125,36 @@ html, body, .stApp { background-color: #12161a !important; color: #ffffff !impor
 div.stButton > button {
     background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%) !important; color: #ffffff !important; font-weight: 700 !important; border-radius: 8px !important; width: 100% !important; border: none !important; padding: 12px !important; box-shadow: 0 4px 12px rgba(255,85,0,0.3);
 }
+
+/* Stable Inlined Overlay News Card Container */
+.news-modal-inline-container {
+    background: #1c2127; border: 1px solid #ff6a00; border-radius: 14px; padding: 18px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
 </style>
 """, unsafe_allow_html=True)
 
-# Application Logo Header Execution
-st.markdown("""
-<div class="nh-top-bar">
-    <div class="nh-logo-title"><div class="nh-logo-icon"></div>nicehash</div>
-    <div style="background:#222933; padding:4px 10px; border-radius:10px; font-size:12px; font-weight:600; color:#ff6a00; border:1px solid #2d3642;">🌐 English</div>
-</div>
-""", unsafe_allow_html=True)
+# Layout Setup for Title and 20+ Dynamic Languages Component
+header_col1, header_col2 = st.columns([2, 1.2])
+with header_col1:
+    st.markdown("""
+    <div class="nh-top-bar" style="border:none; margin-bottom:0; padding-bottom:0;">
+        <div class="nh-logo-title"><div class="nh-logo-icon"></div>nicehash</div>
+    </div>
+    """, unsafe_allow_html=True)
+with header_col2:
+    selected_lang = st.selectbox(
+        label="",
+        options=[
+            "🌐 English", "🌐 Urdu", "🌐 العربية", "🌐 Français", "🌐 Español", 
+            "🌐 Deutsch", "🌐 Русский", "🌐 简体中文", "🌐 Türkçe", "🌐 Tiếng Việt", 
+            "🌐 Bahasa Melayu", "🌐 Português", "🌐 Italiano", "🌐 日本語", "🌐 한국어",
+            "🌐 हिन्दी", "🌐 DeepUrdu", "🌐 Pashto", "🌐 Punjabi", "🌐 Persian", "🌐 Bengali"
+        ],
+        index=0,
+        key="global_language_selector_panel"
+    )
+
+st.markdown("<div style='border-bottom: 1px solid #2a313a; margin-bottom: 15px; margin-top: 5px;'></div>", unsafe_allow_html=True)
 
 # Fetch Sync Wallet States
 invest_bal, comm_bal, vip_level, user_invite = 0.00, 0.00, "VIP0", "286651"
@@ -143,41 +163,41 @@ if st.session_state.logged_in:
     if u_data: invest_bal, comm_bal, vip_level, user_invite = u_data
 
 # ==============================================================================
-# --- 3. THE OFFICIAL MODAL DIALOG POPUP (FIXES BUTTON FREEZE) ---
+# --- 3. COHESIVE NON-BLOCKING INLINE POPUP WINDOW (100% FIXED) ---
 # ==============================================================================
-@st.dialog("News Notice")
-def show_announcement_modal():
+if st.session_state.show_news_announcement and st.session_state.active_tab == "Home":
     st.markdown("""
-    <div style="font-size:13px; color:#cbd5e0; line-height:1.6;">
-        🎉 <b>NiceHash · A New Era of Mining for Everyone</b><br>
-        <b>Officially launched on May 31, 2026.</b><br><br>
-        💡 Unlock and earn your first earnings now!<br>
-        No waiting, no complicated operations, earnings arrive instantly.<br><br>
-        🔥 Let's explore the infinite potential of cryptocurrencies together.
-        <hr style="border-color:rgba(255,255,255,0.08); margin:12px 0;">
-        <span style="color:#ff6a00; font-weight:700; font-size:13px;">✨ VIP Mission Unlocking Plan</span>
-        <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:11px; text-align:center; color:#fff;">
-            <tr style="background:#222933; font-weight:700;">
-                <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
-                <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
-                <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
-                <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
-            </tr>
-            <tr><td>VIP1</td><td>10.00</td><td>3.00</td><td style="color:#00ffcc;">30%</td></tr>
-            <tr><td>VIP2</td><td>100.00</td><td>32.00</td><td style="color:#00ffcc;">32%</td></tr>
-            <tr><td>VIP3</td><td>1000.00</td><td>340.00</td><td style="color:#00ffcc;">34%</td></tr>
-            <tr><td>VIP4</td><td>5000.00</td><td>1800.00</td><td style="color:#00ffcc;">36%</td></tr>
-        </table>
+    <div class="news-modal-inline-container">
+        <h3 style="color:#ffffff; margin:0 0 12px 0; font-weight:800; font-size:22px; text-align:center;">News Notice</h3>
+        <div style="font-size:13px; color:#cbd5e0; line-height:1.6; margin-bottom: 15px;">
+            🎉 <b>NiceHash · A New Era of Mining for Everyone</b><br>
+            <b>Officially launched on May 31, 2026.</b><br><br>
+            💡 Unlock and earn your first earnings now!<br>
+            No waiting, no complicated operations, earnings arrive instantly.<br><br>
+            🔥 Let's explore the infinite potential of cryptocurrencies together.
+            <hr style="border-color:rgba(255,255,255,0.08); margin:12px 0;">
+            <span style="color:#ff6a00; font-weight:700; font-size:13px;">✨ VIP Mission Unlocking Plan</span>
+            <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:11px; text-align:center; color:#fff;">
+                <tr style="background:#222933; font-weight:700;">
+                    <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
+                </tr>
+                <tr><td>VIP1</td><td>10.00</td><td>3.00</td><td style="color:#00ffcc;">30%</td></tr>
+                <tr><td>VIP2</td><td>100.00</td><td>32.00</td><td style="color:#00ffcc;">32%</td></tr>
+                <tr><td>VIP3</td><td>1000.00</td><td>340.00</td><td style="color:#00ffcc;">34%</td></tr>
+                <tr><td>VIP4</td><td>5000.00</td><td>1800.00</td><td style="color:#00ffcc;">36%</td></tr>
+            </table>
+        </div>
     </div>
-    <br>
     """, unsafe_allow_html=True)
-    if st.button("Got it", key="dialog_close_button_key"):
-        st.session_state.popup_shown = True
+    
+    # Fully working clean action trigger dismiss click
+    if st.button("Got it", key="dismiss_inline_news_notice_action_panel"):
+        st.session_state.show_news_announcement = False
         st.rerun()
-
-# Automatically open dialogue popup once on first Home page load
-if not st.session_state.popup_shown and st.session_state.active_tab == "Home":
-    show_announcement_modal()
+    st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
 
 # ==============================================================================
 # --- 4. VIEWS PANEL DISPATCHER ---
@@ -207,15 +227,26 @@ if st.session_state.active_tab == "Home":
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("""
-    <div class="grid-icons-container">
-        <div><div class="icon-box-item">🏛️</div><div class="icon-label-item">Deposit</div></div>
-        <div><div class="icon-box-item">🏧</div><div class="icon-label-item">Withdraw</div></div>
-        <div><div class="icon-box-item">👑</div><div class="icon-label-item">VIP Plan</div></div>
-        <div><div class="icon-box-item">👥</div><div class="icon-label-item">My Team</div></div>
-    </div>
-    """, unsafe_allow_html=True)
-    
+    # BACKEND CONNECTION FOR QUICK HOME GRID ACTIONS
+    grid_cols = st.columns(4)
+    with grid_cols[0]:
+        if st.button("🏛️\nDep", key="home_action_dep_btn"):
+            st.session_state.active_tab = "Me"
+            st.rerun()
+    with grid_cols[1]:
+        if st.button("🏧\nWth", key="home_action_wth_btn"):
+            st.session_state.active_tab = "Me"
+            st.rerun()
+    with grid_cols[2]:
+        if st.button("👑\nVIP", key="home_action_vip_btn"):
+            st.session_state.active_tab = "VIP"
+            st.rerun()
+    with grid_cols[3]:
+        if st.button("👥\nTeam", key="home_action_team_btn"):
+            st.session_state.active_tab = "Team"
+            st.rerun()
+            
+    st.markdown("<div style='margin-top:15px;'></div>", unsafe_allow_html=True)
     st.markdown("<div style='font-size:14px; font-weight:700; margin-bottom:8px; color:#ff6a00;'>Withdrawal Stream Log</div>", unsafe_allow_html=True)
     for log in get_rotating_withdrawal_logs():
         st.markdown(f"<div style='background:#171c24; padding:10px; border-radius:8px; margin-bottom:6px; font-size:12px; border:1px solid #2a313a;'>{log}</div>", unsafe_allow_html=True)
