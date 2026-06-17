@@ -11,7 +11,6 @@ import streamlit as st
 import sqlite3
 import random
 import time
-import datetime
 
 # ==============================================================================
 # --- 1. APP ARCHITECTURE & INITIAL SETUP ---
@@ -39,7 +38,6 @@ def init_nicehash_database():
             investment REAL, daily_yield REAL, accumulated REAL, last_update TEXT
         )
     """)
-    # Default Dummy Accounts for instant validation
     cursor.execute("INSERT OR IGNORE INTO users VALUES ('demo@gmail.com', 'demo123', '1122', 150.00, 45.50, 'VIP1', '286651')")
     cursor.execute("INSERT OR IGNORE INTO users VALUES ('admin@nicehash.one', 'admin786', '0000', 5000.00, 1250.00, 'VIP4', '777888')")
     conn.commit()
@@ -75,7 +73,7 @@ phones_pool = ['+9230****891', '+9232****443', '+6281****992', '+4479****112', '
 
 def get_rotating_withdrawal_logs():
     logs = []
-    random.seed(int(time.time() / 60))  # Consistent rotation across refreshes
+    random.seed(int(time.time() / 60))
     for i in range(4):
         identity = random.choice(emails_pool if i % 2 == 0 else phones_pool)
         amount = round(random.uniform(15.00, 3450.00), 2)
@@ -83,7 +81,7 @@ def get_rotating_withdrawal_logs():
     return logs
 
 # ==============================================================================
-# --- 2. EXACT ORIGINAL GRAPHIC STYLING EMBED (YOUR PREMIUM MARKS) ---
+# --- 2. PREMIUM APP STYLING (CLEAN SPACING CONSTRAINTS) ---
 # ==============================================================================
 st.markdown("""
 <style>
@@ -92,12 +90,12 @@ footer, .stDeployButton, #MainMenu, [data-testid="stStatusWidget"], [data-testid
 
 html, body, .stApp { background-color: #12161a !important; color: #ffffff !important; font-family: 'Inter', sans-serif !important; }
 
-/* Perfect Mobile Canvas Bounds */
-[data-testid="stVerticalBlock"] { max-width: 440px !important; margin: 0 auto !important; padding: 12px !important; background: #1c2127 !important; border-radius: 0px !important; min-height: 100vh; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
+/* Perfect Mobile Canvas Bounds Without Empty Spaces */
+[data-testid="stVerticalBlock"] { max-width: 440px !important; margin: 0 auto !important; padding: 12px !important; background: #1c2127 !important; border-radius: 0px !important; min-height: 100vh; }
 
 /* Exact Original Header Style */
 .nh-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #1c2127; padding-bottom: 8px; border-bottom: 1px solid #2a313a; }
-.nh-logo-title { font-size: 24px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; font-style: normal; }
+.nh-logo-title { font-size: 24px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
 .nh-logo-icon { width: 24px; height: 24px; background: #ff6a00; border-radius: 50%; display: inline-block; position: relative; }
 .nh-logo-icon::after { content: ''; position: absolute; width: 10px; height: 10px; background: #1c2127; left: 7px; top: 7px; border-radius: 50%; }
 
@@ -109,7 +107,7 @@ html, body, .stApp { background-color: #12161a !important; color: #ffffff !impor
 
 /* Grid Quick Icons Actions */
 .grid-icons-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-bottom: 18px; }
-.icon-box-item { background: #222933; border-radius: 12px; width: 50px; height: 50px; line-height: 50px; font-size: 20px; margin: 0 auto 4px auto; border: 1px solid #2d3642; color: #ff6a00; cursor: pointer; }
+.icon-box-item { background: #222933; border-radius: 12px; width: 50px; height: 50px; line-height: 50px; font-size: 20px; margin: 0 auto 4px auto; border: 1px solid #2d3642; color: #ff6a00; }
 .icon-label-item { font-size: 11px; font-weight: 500; color: #cbd5e0; }
 
 /* Marquee Scrolling Box */
@@ -118,16 +116,19 @@ html, body, .stApp { background-color: #12161a !important; color: #ffffff !impor
 @keyframes textScroll { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
 
 /* Rotating Fan Component Graphic */
-.cooling-fan-hardware { width: 140px; height: 140px; background: radial-gradient(circle, #2d3542 0%, #171c24 100%); border-radius: 50%; border: 4px solid #ff6a00; margin: 25px auto; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 20px rgba(255,106,0,0.2); }
+.cooling-fan-hardware { width: 140px; height: 140px; background: radial-gradient(circle, #2d3542 0%, #171c24 100%); border-radius: 50%; border: 4px solid #ff6a00; margin: 25px auto; display: flex; align-items: center; justify-content: center; position: relative; }
 .fan-blades-wing { width: 110px; height: 110px; background: repeating-conic-gradient(from 0deg, #ff6a00 0deg 30deg, #171c24 30deg 60deg); border-radius: 50%; animation: spinHardware 1.2s linear infinite; }
 @keyframes spinHardware { 100% { transform: rotate(360deg); } }
 .fan-center-core { position: absolute; width: 36px; height: 36px; background: #171c24; border: 2px solid #ffffff; border-radius: 50%; color: #ffffff; font-weight: 800; font-size: 12px; line-height: 32px; text-align: center; }
 
-/* Custom HTML Close Button embedded inside Modal container frame */
-.custom-modal-close-trigger {
-    display: block; width: 100%; text-align: center; background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%);
-    color: white !important; font-weight: 700; border: none; padding: 12px; border-radius: 8px;
-    font-size: 14px; text-decoration: none; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 12px rgba(255,85,0,0.3);
+/* Custom Streamlit Buttons Global Modification */
+div.stButton > button {
+    background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%) !important; color: #ffffff !important; font-weight: 700 !important; border-radius: 8px !important; width: 100% !important; border: none !important; padding: 12px !important; box-shadow: 0 4px 12px rgba(255,85,0,0.3);
+}
+
+/* Stable Overlay News Card Container */
+.news-modal-container {
+    background: #1c2127; border: 1px solid #ff6a00; border-radius: 14px; padding: 18px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 </style>
 """, unsafe_allow_html=True)
@@ -147,55 +148,51 @@ if st.session_state.logged_in:
     if u_data: invest_bal, comm_bal, vip_level, user_invite = u_data
 
 # ==============================================================================
-# --- 3. PREMIUM NEWS MODAL CONTROLLER (100% VISIBILITY CLOSURE INTERFACE) ---
+# --- 3. THE LIVE COMPACT OVERLAY NEWS MODAL (FIXED ALIGNMENT) ---
 # ==============================================================================
-# Native Query parameters engine interception to flush popup without framework layout blocks
-url_intercept = st.query_params
-if "flush_popup" in url_intercept:
-    st.session_state.show_news = False
-    st.query_params.clear()
-    st.rerun()
-
 if st.session_state.show_news and st.session_state.active_tab == "Home":
     st.markdown("""
-    <div style="background: rgba(0,0,0,0.85); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 12px;">
-        <div style="background: #1c2127; max-width: 390px; width:100%; border-radius: 14px; border: 1px solid #ff6a00; padding: 18px; box-shadow: 0 10px 35px rgba(0,0,0,0.8); max-height: 85vh; overflow-y: auto;">
-            <h3 style="color:#ffffff; margin:0 0 12px 0; font-weight:800; font-size:22px; text-align:center;">News</h3>
-            <div style="font-size:12.5px; color:#cbd5e0; line-height:1.6;">
-                🎉 <b>NiceHash · A New Era of Mining for Everyone</b><br>
-                <b>Officially launched on May 31, 2026.</b><br><br>
-                💡 Unlock and earn your first earnings now!<br>
-                No waiting, no complicated operations, earnings arrive instantly after unlocking.<br><br>
-                🔥 Here, let's explore the infinite potential of cryptocurrencies together. A new era truly begins the moment you join us.
-                <hr style="border-color:rgba(255,255,255,0.08); margin:12px 0;">
-                <span style="color:#ff6a00; font-weight:700; font-size:13px;">✨ VIP Mission Unlocking Plan - Enjoy Instant Recharge</span>
-                <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:11px; text-align:center; color:#fff;">
-                    <tr style="background:#222933; font-weight:700;">
-                        <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
-                        <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
-                        <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
-                        <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
-                    </tr>
-                    <tr><td style="padding:5px; border:1px solid #2d3642;">VIP1</td><td style="padding:5px; border:1px solid #2d3642;">10.00</td><td style="padding:5px; border:1px solid #2d3642;">3.00</td><td style="padding:5px; border:1px solid #2d3642; color:#00ffcc;">30%</td></tr>
-                    <tr><td style="padding:5px; border:1px solid #2d3642;">VIP2</td><td style="padding:5px; border:1px solid #2d3642;">100.00</td><td style="padding:5px; border:1px solid #2d3642;">32.00</td><td style="padding:5px; border:1px solid #2d3642; color:#00ffcc;">32%</td></tr>
-                    <tr><td style="padding:5px; border:1px solid #2d3642;">VIP3</td><td style="padding:5px; border:1px solid #2d3642;">1000.00</td><td style="padding:5px; border:1px solid #2d3642;">340.00</td><td style="padding:5px; border:1px solid #2d3642; color:#00ffcc;">34%</td></tr>
-                    <tr><td style="padding:5px; border:1px solid #2d3642;">VIP4</td><td style="padding:5px; border:1px solid #2d3642;">5000.00</td><td style="padding:5px; border:1px solid #2d3642;">1800.00</td><td style="padding:5px; border:1px solid #2d3642; color:#00ffcc;">36%</td></tr>
-                </table>
-            </div>
-            <a href="/?flush_popup=true" target="_self" class="custom-modal-close-trigger">Got it</a>
+    <div class="news-modal-container">
+        <h3 style="color:#ffffff; margin:0 0 12px 0; font-weight:800; font-size:22px; text-align:center;">News</h3>
+        <div style="font-size:13px; color:#cbd5e0; line-height:1.6; margin-bottom: 15px;">
+            🎉 <b>NiceHash · A New Era of Mining for Everyone</b><br>
+            <b>Officially launched on May 31, 2026.</b><br><br>
+            💡 Unlock and earn your first earnings now!<br>
+            No waiting, no complicated operations, earnings arrive instantly.<br><br>
+            🔥 Let's explore the infinite potential of cryptocurrencies together.
+            <hr style="border-color:rgba(255,255,255,0.08); margin:12px 0;">
+            <span style="color:#ff6a00; font-weight:700; font-size:13px;">✨ VIP Mission Unlocking Plan</span>
+            <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:11px; text-align:center; color:#fff;">
+                <tr style="background:#222933; font-weight:700;">
+                    <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
+                </tr>
+                <tr><td>VIP1</td><td>10.00</td><td>3.00</td><td style="color:#00ffcc;">30%</td></tr>
+                <tr><td>VIP2</td><td>100.00</td><td>32.00</td><td style="color:#00ffcc;">32%</td></tr>
+                <tr><td>VIP3</td><td>1000.00</td><td>340.00</td><td style="color:#00ffcc;">34%</td></tr>
+                <tr><td>VIP4</td><td>5000.00</td><td>1800.00</td><td style="color:#00ffcc;">36%</td></tr>
+            </table>
         </div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Official Native button that clears the view box immediately and gracefully
+    if st.button("Got it", key="flush_news_panel_native_action"):
+        st.session_state.show_news = False
+        st.rerun()
+    st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:20px 0;'>", unsafe_allow_html=True)
 
 # ==============================================================================
 # --- 4. VIEWS PANEL DISPATCHER ---
 # ==============================================================================
 
-# --- HOME TAB PANELS (`1000078177.jpg`) ---
+# --- HOME TAB PANELS ---
 if st.session_state.active_tab == "Home":
     st.markdown("""
     <div style="width:100%; height:110px; background:linear-gradient(135deg, #252b35 0%, #12161a 100%); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #2d3642; margin-bottom:12px;">
-        <div style="font-size:26px; font-weight:900; color:#ff6a00; letter-spacing:2px; text-shadow:0 0 10px rgba(255,106,0,0.3);">nice<span style="color:#ffffff;">hash</span></div>
+        <div style="font-size:26px; font-weight:900; color:#ff6a00; letter-spacing:2px;">nice<span style="color:#ffffff;">hash</span></div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -217,10 +214,10 @@ if st.session_state.active_tab == "Home":
     
     st.markdown("""
     <div class="grid-icons-container">
-        <div onclick="window.location.reload()"><div class="icon-box-item">🏛️</div><div class="icon-label-item">Deposit</div></div>
-        <div onclick="window.location.reload()"><div class="icon-box-item">🏧</div><div class="icon-label-item">Withdraw</div></div>
-        <div onclick="window.location.reload()"><div class="icon-box-item">👑</div><div class="icon-label-item">VIP Plan</div></div>
-        <div onclick="window.location.reload()"><div class="icon-box-item">👥</div><div class="icon-label-item">My Team</div></div>
+        <div><div class="icon-box-item">🏛️</div><div class="icon-label-item">Deposit</div></div>
+        <div><div class="icon-box-item">🏧</div><div class="icon-label-item">Withdraw</div></div>
+        <div><div class="icon-box-item">👑</div><div class="icon-label-item">VIP Plan</div></div>
+        <div><div class="icon-box-item">👥</div><div class="icon-label-item">My Team</div></div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -228,7 +225,7 @@ if st.session_state.active_tab == "Home":
     for log in get_rotating_withdrawal_logs():
         st.markdown(f"<div style='background:#171c24; padding:10px; border-radius:8px; margin-bottom:6px; font-size:12px; border:1px solid #2a313a;'>{log}</div>", unsafe_allow_html=True)
 
-# --- VIP EXPERT TIERS PANEL (`1000078175.jpg`) ---
+# --- VIP TIERS PANEL ---
 elif st.session_state.active_tab == "VIP":
     st.markdown(f"""
     <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; margin-bottom:15px;">
@@ -248,7 +245,7 @@ elif st.session_state.active_tab == "VIP":
         </div>
         """, unsafe_allow_html=True)
 
-# --- HARDWARE MINING FAN SIMULATOR PANEL (`1000078174.jpg`) ---
+# --- HARDWARE MINING FAN SIMULATOR PANEL ---
 elif st.session_state.active_tab == "Mining":
     st.markdown("""
     <div class="cooling-fan-hardware"><div class="fan-blades-wing"></div><div class="fan-center-core">⚡</div></div>
@@ -262,10 +259,6 @@ elif st.session_state.active_tab == "Mining":
         <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#cbd5e0;">Cloud Engine Status</span><span style="color:#00ffcc; font-weight:600;">ACTIVE & RUNNING</span></div>
     </div>
     """, unsafe_allow_html=True)
-    
-    st.markdown("<div style='margin-top:15px;'></div>", unsafe_allow_html=True)
-    if st.button("Manual Extraction Force"):
-        st.toast("Syncing blockchain matrix nodes...")
 
 # --- REFERRAL LOGISTIC NETWORK PANEL ---
 elif st.session_state.active_tab == "Team":
@@ -279,7 +272,7 @@ elif st.session_state.active_tab == "Team":
     </div>
     """, unsafe_allow_html=True)
 
-# --- USER PROFILE & VAULT CONFIGS (`1000078171.jpg`) ---
+# --- USER PROFILE & VAULT CONFIGS ---
 elif st.session_state.active_tab == "Me":
     if not st.session_state.logged_in:
         st.markdown("<h4 style='text-align:center; color:#ff6a00; margin-bottom:15px;'>NiceHash Security Firewall</h4>", unsafe_allow_html=True)
@@ -296,7 +289,7 @@ elif st.session_state.active_tab == "Me":
                 st.session_state.current_user = "admin@nicehash.one"
                 st.rerun()
             else:
-                st.error("Firewall reject: Invalid Key parameters match.")
+                st.error("Firewall reject: Invalid Key match.")
     else:
         st.markdown(f"""
         <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; margin-bottom:15px;">
@@ -306,10 +299,7 @@ elif st.session_state.active_tab == "Me":
         </div>
         """, unsafe_allow_html=True)
         
-        # Test Transaction Simulators
-        st.markdown("<div style='font-size:13px; font-weight:700; color:#ff6a00; margin-bottom:4px;'>Simulation Controls</div>", unsafe_allow_html=True)
         deposit_input = st.number_input("Test Core Deposit Amount ($):", min_value=5.0, step=10.0)
-        
         if st.button("Inject Simulated USDT Balance"):
             query_db("UPDATE users SET invest_wallet = invest_wallet + ? WHERE username=?", (deposit_input, st.session_state.current_user), commit=True)
             st.success("Database vault state balanced successfully!")
@@ -317,7 +307,7 @@ elif st.session_state.active_tab == "Me":
             st.rerun()
             
         st.markdown("<hr style='border-color:rgba(255,255,255,0.05);'>", unsafe_allow_html=True)
-        if st.button("Disconnect Node Terminal Session"):
+        if st.button("Disconnect Terminal Session"):
             st.session_state.logged_in = False
             st.session_state.current_user = ""
             st.rerun()
@@ -325,7 +315,7 @@ elif st.session_state.active_tab == "Me":
 # ==============================================================================
 # --- 5. PREMIUM BOTTOM NAVIGATION BAR BAR CONFIGURATION ---
 # ==============================================================================
-st.markdown("<div style='margin-top:45px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='margin-top:25px;'></div>", unsafe_allow_html=True)
 bottom_navigation_grid = st.columns(5)
 
 with bottom_navigation_grid[0]:
