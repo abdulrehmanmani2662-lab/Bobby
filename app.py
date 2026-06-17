@@ -23,7 +23,7 @@ DICTIONARY = {
         "marquee": "Unlock and earn your first earnings now! No waiting, no complicated operations, earnings arrive instantly after unlocking.",
         "assets_title": "Total assets", "invest_lbl": "Invest wallet", "comm_lbl": "Commission wallet",
         "d_btn": "Deposit", "w_btn": "Withdraw", "v_btn": "VIP Plan", "t_btn": "My Team", "m_btn": "Mine", "me_btn": "Me",
-        "log_title": "Withdrawal Stream Log", "curr_v": "Current Profile Level:", "my_d": "My Active Deposit:",
+        "log_title": "Withdrawal Stream Log", "partners": "Global Partners", "curr_v": "Current Profile Level:", "my_d": "My Active Deposit:",
         "req_m": "Required Minimum Entry:", "day_r": "Automated Daily Return:", "acc_c": "Accumulating Live Crypto",
         "eng_s": "Cloud Engine Status:", "act_run": "ACTIVE & RUNNING", "inv_id": "Personal Invitation ID Code",
         "inv_lnk": "Share Referral Registration Link", "firewall": "NiceHash Security Firewall", "email_lbl": "Account Handle Email:",
@@ -36,8 +36,8 @@ DICTIONARY = {
         "welcome": "نائس ہیش · مائننگ کا نیا دور", "launch": "سرکاری طور پر 31 مئی 2026 کو شروع کیا گیا۔",
         "marquee": "ابھی انلاک کریں اور اپنی پہلی کمائی حاصل کریں! کوئی انتظار نہیں، کوئی پیچیدہ طریقہ کار نہیں، رقم فوری منتقل ہوتی ہے۔",
         "assets_title": "کل اثاثے", "invest_lbl": "انوسٹ والٹ", "comm_lbl": "کمیشن والٹ",
-        "d_btn": "جمع کریں", "w_btn": "نکلوائیں", "v_btn": "وی آئی پی پلان", "t_btn": "میری تیم", "m_btn": "مائننگ", "me_btn": "پروفائل",
-        "log_title": "رقم نکلوانے کا لائیو لاگ", "curr_v": "موجودہ وی آئی پی لیول:", "my_d": "میرا فعال ڈیپازٹ:",
+        "d_btn": "جمع کریں", "w_btn": "نکلوائیں", "v_btn": "وی آئی پی پلان", "t_btn": "میری ٹیم", "m_btn": "مائننگ", "me_btn": "پروفائل",
+        "log_title": "رقم نکلوانے کا لائیو لاگ", "partners": "عالمی شراکت دار", "curr_v": "موجودہ وی آئی پی لیول:", "my_d": "میرا فعال ڈیپازٹ:",
         "req_m": "کم از کم مطلوبہ رقم:", "day_r": "روزانہ کا خودکار منافع:", "acc_c": "لائیو کرپٹو مائننگ جاری ہے",
         "eng_s": "کلاؤڈ انجن کی حالت:", "act_run": "فعال اور چل رہا ہے", "inv_id": "ذاتی انویٹیشن کوڈ",
         "inv_lnk": "ریفرل رجسٹریشن لنک شیئر کریں", "firewall": "نائس ہیش سیکیورٹی فائر وال", "email_lbl": "اکاؤنٹ ای میل درج کریں:",
@@ -49,9 +49,9 @@ DICTIONARY = {
         "title": "جانی نائس ہیش", "news_head": "ضروری نوٹس سنو جانی", "got_it": "سمجھ گیا جانی",
         "welcome": "نائس ہیش · مائننگ کا مال تیار ہے", "launch": "فُل لائیو تباھی 31 مئی 2026",
         "marquee": "جانی ابھی انلاک کرو اور مال نکالنا شروع کرو! کوئی لمبا چکر نہیں ہے، بٹن دباتے ہی کمائی سیدھی جیب میں آتی ہے مِنتو میں!",
-        "assets_title": "کل مال پانی", "invest_lbl": "انوسٹ والٹ اکاؤنٹ", "comm_lbl": "کمیشن والا والٹ",
+        "assets_title": "کل مال پانی", "invest_lbl": "انوسٹ والٹ اکاؤنٹ", "comm_lbl": "کمیشن वाला والٹ",
         "d_btn": "پیسے ڈالیں", "w_btn": "پیسے نکالیں", "v_btn": "وی آئی پی پلانز", "t_btn": "اپنی گینگ", "m_btn": "مائننگ فین", "me_btn": "میرا اکاؤنٹ",
-        "log_title": "لائیو پرافٹ کی لسٹ جانی", "curr_v": "تمہارا ابھی کا لیول:", "my_d": "تمہارا ٹوٹل انوسٹ مال:",
+        "log_title": "لائیو پرافٹ کی لسٹ جانی", "partners": "بڑے بڑے برانڈز", "curr_v": "تمہارا ابھی کا لیول:", "my_d": "تمہارا ٹوٹل انوسٹ مال:",
         "req_m": "کم از کم انٹری فیس:", "day_r": "روزانہ کا پکا پرافٹ:", "acc_c": "کلاؤڈ مائننگ دھڑا دھڑ جاری ہے",
         "eng_s": "انجن کا سین کیا ہے:", "act_run": "فُل سپیڈ میں چل رہا ہے جانی", "inv_id": "تمہارا کوڈ لوٹو اب",
         "inv_lnk": "یہ لنک گینگ کو بھیجو اور کمیشن کھاؤ", "firewall": "نائس ہیش سیکیورٹی فائر وال لاک", "email_lbl": "اپنی ای میل لکھو جانی:",
@@ -65,7 +65,7 @@ DICTIONARY = {
         "marquee": "افتح واربح أول أرباحك الآن! لا انتظار ، لا عمليات معقدة ، الأرباح تصل فورًا بعد الفتح.",
         "assets_title": "إجمالي الأصول", "invest_lbl": "محفظة الاستثمار", "comm_lbl": "محفظة العمولات",
         "d_btn": "إيداع", "w_btn": "سحب", "v_btn": "خطة VIP", "t_btn": "فريقي", "m_btn": "تعدين", "me_btn": "حسابي",
-        "log_title": "سجل عمليات السحب المباشر", "curr_v": "مستوى VIP الحالي:", "my_d": "إيداعي النشط:",
+        "log_title": "سجل عمليات السحب المباشر", "partners": "الشركاء العالميون", "curr_vip": "مستوى VIP الحالي:", "my_d": "إيداعي النشط:",
         "req_m": "الحد الأدنى للمشاركة:", "day_r": "العائد اليومي التلقائي:", "acc_c": "تراكم العملات المشفرة مباشرة",
         "eng_s": "حالة محرك السحاب:", "act_run": "نشط ويعمل فورا", "inv_id": "رمز الدعوة الشخصي",
         "inv_lnk": "مشاركة رابط التسجيل", "firewall": "جدار حماية نايس هاش", "email_lbl": "بريد الحساب:",
@@ -75,7 +75,6 @@ DICTIONARY = {
     }
 }
 
-# Dynamic injection loops for building out the 22 complete standard global languages array
 extended_language_keys = [
     "🌐 Français", "🌐 Deutsch", "🌐 Русский", "🌐 简体中文", "🌐 Türkçe", "🌐 Tiếng Việt", 
     "🌐 Bahasa Melayu", "🌐 Português", "🌐 Italiano", "🌐 日本語", "🌐 한국어", "🌐 हिन्दी", 
@@ -97,9 +96,8 @@ def run_db_migrations():
             invest_wallet REAL, commission_wallet REAL, vip_level TEXT, invite_code TEXT, last_accumulation REAL
         )
     """)
-    # Seed live working standard accounts securely
-    cursor.execute("INSERT OR IGNORE INTO accounts VALUES ('demo@gmail.com', 'demo123', '1122', 350.00, 120.50, 'VIP1', '286651', 1718683200.0)")
-    cursor.execute("INSERT OR IGNORE INTO accounts VALUES ('admin@nicehash.one', 'admin786', '0000', 8500.00, 3240.00, 'VIP4', '777888', 1718683200.0)")
+    cursor.execute("INSERT OR IGNORE INTO accounts VALUES ('demo@gmail.com', 'demo123', '1122', 150.00, 45.50, 'VIP1', '286651', 1718683200.0)")
+    cursor.execute("INSERT OR IGNORE INTO accounts VALUES ('admin@nicehash.one', 'admin786', '0000', 5000.00, 1250.00, 'VIP4', '777888', 1718683200.0)")
     conn.commit()
     conn.close()
 
@@ -128,27 +126,26 @@ if 'logged_in' not in st.session_state: st.session_state.logged_in = False
 if 'current_user' not in st.session_state: st.session_state.current_user = ""
 if 'active_tab' not in st.session_state: st.session_state.active_tab = "Home"
 if 'show_inline_news' not in st.session_state: st.session_state.show_inline_news = True
+if 'crypto_yield_accumulator' not in st.session_state: st.session_state.crypto_yield_accumulator = 0.00000000
 
-# Automatic active mining balance generation logic tracked across timestamps
-if 'crypto_yield_accumulator' not in st.session_state:
-    st.session_state.crypto_yield_accumulator = 0.00000000
-
+# Fetch Sync Wallet States Globally to prevent initialization order NameErrors
+invest_bal, comm_bal, vip_level, user_invite = 0.00, 0.00, "VIP0", "286651"
 if st.session_state.logged_in:
-    account_stats = query_vault("SELECT invest_wallet, vip_level FROM accounts WHERE username=?", (st.session_state.current_user,), one=True)
-    if account_stats and account_stats[0] > 0:
-        tier = account_stats[1]
-        daily_ratio = 0.00
-        if tier == "VIP1": daily_ratio = 30.0
-        elif tier == "VIP2": daily_ratio = 32.0
-        elif tier == "VIP3": daily_ratio = 34.0
-        elif tier == "VIP4": daily_ratio = 36.0
+    account_stats = query_vault("SELECT invest_wallet, commission_wallet, vip_level, invite_code FROM accounts WHERE username=?", (st.session_state.current_user,), one=True)
+    if account_stats:
+        invest_bal, comm_bal, vip_level, user_invite = account_stats
         
-        # Calculate real mathematical block fraction generated per second
-        per_second_yield = (account_stats[0] * (daily_ratio / 100.0)) / 86400.0
-        # Multiplier block injection simulation simulation
-        st.session_state.crypto_yield_accumulator += per_second_yield * random.uniform(0.98, 1.02)
+        # Live fractions accumulation logic loop
+        daily_ratio = 0.00
+        if vip_level == "VIP1": daily_ratio = 30.0
+        elif vip_level == "VIP2": daily_ratio = 32.0
+        elif vip_level == "VIP3": daily_ratio = 34.0
+        elif vip_level == "VIP4": daily_ratio = 36.0
+        
+        if invest_bal > 0:
+            per_second_yield = (invest_bal * (daily_ratio / 100.0)) / 86400.0
+            st.session_state.crypto_yield_accumulator += per_second_yield * random.uniform(0.98, 1.02)
 
-# High volume withdrawal dynamic data stream pool
 user_nodes_pool = ['a***8h@gmail.com', 'k***22@yahoo.com', 'n***_hash@live.com', 'x***9@hotmail.com', 'r***00@gmail.com']
 def generate_live_withdrawal_ledger():
     logs = []
@@ -241,10 +238,10 @@ if st.session_state.show_inline_news and st.session_state.active_tab == "Home":
             <hr style="border-color:rgba(255,255,255,0.08); margin:10px 0;">
             <table style="width:100%; border-collapse:collapse; text-align:center; color:#fff; font-size:11px;">
                 <tr style="background:#222933; font-weight:700;">
-                    <th style="padding:5px; border:1px solid #2d3642;">Grade</th>
-                    <th style="padding:5px; border:1px solid #2d3642;">Investment</th>
-                    <th style="padding:5px; border:1px solid #2d3642;">Daily</th>
-                    <th style="padding:5px; border:1px solid #2d3642;">Yield</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
+                    <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
                 </tr>
                 <tr><td>VIP1</td><td>10.00</td><td>3.00</td><td style="color:#00ffcc;">30%</td></tr>
                 <tr><td>VIP2</td><td>100.00</td><td>32.00</td><td style="color:#00ffcc;">32%</td></tr>
@@ -281,7 +278,6 @@ if st.session_state.active_tab == "Home":
     </div>
     """, unsafe_allow_html=True)
     
-    # 100% REAL DYNAMIC ROUTING VIA HOME GRID ICON COLUMNS
     grid_blocks = st.columns(4)
     with grid_blocks[0]:
         if st.button(f"🏛️\n{L['d_btn']}", key="h_grid_deposit_action"):
@@ -381,15 +377,13 @@ elif st.session_state.active_tab == "Me":
     else:
         st.markdown(f"""
         <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; margin-bottom:15px;">
-            <div style="font-size:16px; font-weight:700; color:#fff;">👤 {st.session_state.current_user}</div>
+            <div style="font-weight:700; font-size:16px; color:#fff;">👤 {st.session_state.current_user}</div>
             <span style="background:#ff6a00; color:white; font-size:10px; font-weight:800; padding:2px 8px; border-radius:6px; margin-top:4px; display:inline-block;">{vip_level} Security Level Node</span>
         </div>
         """, unsafe_allow_html=True)
         
-        # Real Interactive Deposit Simulation Input
         dep_input = st.number_input("Input USDT Deposit Amount ($):", min_value=10.0, step=50.0)
         if st.button(L["inject_b"], key="me_inject_simulated_deposit_action_btn"):
-            # Update database states instantly
             vip_tier_update = "VIP1"
             if dep_input >= 5000: vip_tier_update = "VIP4"
             elif dep_input >= 1000: vip_tier_update = "VIP3"
@@ -402,7 +396,6 @@ elif st.session_state.active_tab == "Me":
             
         st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
         
-        # Real Working Withdrawal Form Integration
         wth_input = st.number_input(L["wth_lbl"], min_value=10.0, step=10.0, key="me_withdrawal_input_box_field")
         if st.button(L["exec_wth"], key="me_withdrawal_execute_action_trigger_btn"):
             if invest_bal >= wth_input:
@@ -426,12 +419,12 @@ st.markdown("<div style='margin-top:35px;'></div>", unsafe_allow_html=True)
 nav_grid = st.columns(5)
 
 with nav_grid[0]:
-    if st.button(f"🏠\n{L['d_btn'][:4]}", key="n_h_f"): st.session_state.active_tab = "Home"; st.rerun()
+    if st.button(f"🏠\nHome", key="n_h_f"): st.session_state.active_tab = "Home"; st.rerun()
 with nav_grid[1]:
-    if st.button(f"👑\n{L['v_btn'][:4]}", key="n_v_f"): st.session_state.active_tab = "VIP"; st.rerun()
+    if st.button(f"👑\nVIP", key="n_v_f"): st.session_state.active_tab = "VIP"; st.rerun()
 with nav_grid[2]:
-    if st.button(f"⚡\n{L['m_btn'][:4]}", key="n_m_f"): st.session_state.active_tab = "Mining"; st.rerun()
-with nav_cols[3] if 'nav_cols' in locals() else nav_grid[3]:
-    if st.button(f"👥\n{L['t_btn'][:4]}", key="n_t_f"): st.session_state.active_tab = "Team"; st.rerun()
-with nav_cols[4] if 'nav_cols' in locals() else nav_grid[4]:
-    if st.button(f"👤\n{L['me_btn'][:4]}", key="n_me_f"): st.session_state.active_tab = "Me"; st.rerun()
+    if st.button(f"⚡\nMine", key="n_m_f"): st.session_state.active_tab = "Mining"; st.rerun()
+with nav_grid[3]:
+    if st.button(f"👥\nTeam", key="n_t_f"): st.session_state.active_tab = "Team"; st.rerun()
+with nav_grid[4]:
+    if st.button(f"👤\nMe", key="n_me_f"): st.session_state.active_tab = "Me"; st.rerun()
