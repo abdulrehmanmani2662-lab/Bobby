@@ -65,7 +65,7 @@ init_nicehash_database()
 if 'logged_in' not in st.session_state: st.session_state.logged_in = False
 if 'current_user' not in st.session_state: st.session_state.current_user = ""
 if 'active_tab' not in st.session_state: st.session_state.active_tab = "Home"
-if 'show_news' not in st.session_state: st.session_state.show_news = True
+if 'popup_shown' not in st.session_state: st.session_state.popup_shown = False
 
 # Real-time Rotating Fake Log Pools
 emails_pool = ['m***7a@gmail.com', 'k***99@yahoo.com', 's***_khan@live.com', 'r***x7@hotmail.com', 'a***11@gmail.com']
@@ -125,11 +125,6 @@ html, body, .stApp { background-color: #12161a !important; color: #ffffff !impor
 div.stButton > button {
     background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%) !important; color: #ffffff !important; font-weight: 700 !important; border-radius: 8px !important; width: 100% !important; border: none !important; padding: 12px !important; box-shadow: 0 4px 12px rgba(255,85,0,0.3);
 }
-
-/* Stable Overlay News Card Container */
-.news-modal-container {
-    background: #1c2127; border: 1px solid #ff6a00; border-radius: 14px; padding: 18px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
 </style>
 """, unsafe_allow_html=True)
 
@@ -148,41 +143,41 @@ if st.session_state.logged_in:
     if u_data: invest_bal, comm_bal, vip_level, user_invite = u_data
 
 # ==============================================================================
-# --- 3. THE LIVE COMPACT OVERLAY NEWS MODAL (FIXED ALIGNMENT) ---
+# --- 3. THE OFFICIAL MODAL DIALOG POPUP (FIXES BUTTON FREEZE) ---
 # ==============================================================================
-if st.session_state.show_news and st.session_state.active_tab == "Home":
+@st.dialog("News Notice")
+def show_announcement_modal():
     st.markdown("""
-    <div class="news-modal-container">
-        <h3 style="color:#ffffff; margin:0 0 12px 0; font-weight:800; font-size:22px; text-align:center;">News</h3>
-        <div style="font-size:13px; color:#cbd5e0; line-height:1.6; margin-bottom: 15px;">
-            🎉 <b>NiceHash · A New Era of Mining for Everyone</b><br>
-            <b>Officially launched on May 31, 2026.</b><br><br>
-            💡 Unlock and earn your first earnings now!<br>
-            No waiting, no complicated operations, earnings arrive instantly.<br><br>
-            🔥 Let's explore the infinite potential of cryptocurrencies together.
-            <hr style="border-color:rgba(255,255,255,0.08); margin:12px 0;">
-            <span style="color:#ff6a00; font-weight:700; font-size:13px;">✨ VIP Mission Unlocking Plan</span>
-            <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:11px; text-align:center; color:#fff;">
-                <tr style="background:#222933; font-weight:700;">
-                    <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
-                    <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
-                    <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
-                    <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
-                </tr>
-                <tr><td>VIP1</td><td>10.00</td><td>3.00</td><td style="color:#00ffcc;">30%</td></tr>
-                <tr><td>VIP2</td><td>100.00</td><td>32.00</td><td style="color:#00ffcc;">32%</td></tr>
-                <tr><td>VIP3</td><td>1000.00</td><td>340.00</td><td style="color:#00ffcc;">34%</td></tr>
-                <tr><td>VIP4</td><td>5000.00</td><td>1800.00</td><td style="color:#00ffcc;">36%</td></tr>
-            </table>
-        </div>
+    <div style="font-size:13px; color:#cbd5e0; line-height:1.6;">
+        🎉 <b>NiceHash · A New Era of Mining for Everyone</b><br>
+        <b>Officially launched on May 31, 2026.</b><br><br>
+        💡 Unlock and earn your first earnings now!<br>
+        No waiting, no complicated operations, earnings arrive instantly.<br><br>
+        🔥 Let's explore the infinite potential of cryptocurrencies together.
+        <hr style="border-color:rgba(255,255,255,0.08); margin:12px 0;">
+        <span style="color:#ff6a00; font-weight:700; font-size:13px;">✨ VIP Mission Unlocking Plan</span>
+        <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:11px; text-align:center; color:#fff;">
+            <tr style="background:#222933; font-weight:700;">
+                <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
+                <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
+                <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
+                <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
+            </tr>
+            <tr><td>VIP1</td><td>10.00</td><td>3.00</td><td style="color:#00ffcc;">30%</td></tr>
+            <tr><td>VIP2</td><td>100.00</td><td>32.00</td><td style="color:#00ffcc;">32%</td></tr>
+            <tr><td>VIP3</td><td>1000.00</td><td>340.00</td><td style="color:#00ffcc;">34%</td></tr>
+            <tr><td>VIP4</td><td>5000.00</td><td>1800.00</td><td style="color:#00ffcc;">36%</td></tr>
+        </table>
     </div>
+    <br>
     """, unsafe_allow_html=True)
-    
-    # Official Native button that clears the view box immediately and gracefully
-    if st.button("Got it", key="flush_news_panel_native_action"):
-        st.session_state.show_news = False
+    if st.button("Got it", key="dialog_close_button_key"):
+        st.session_state.popup_shown = True
         st.rerun()
-    st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:20px 0;'>", unsafe_allow_html=True)
+
+# Automatically open dialogue popup once on first Home page load
+if not st.session_state.popup_shown and st.session_state.active_tab == "Home":
+    show_announcement_modal()
 
 # ==============================================================================
 # --- 4. VIEWS PANEL DISPATCHER ---
