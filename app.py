@@ -49,7 +49,7 @@ DICTIONARY = {
         "title": "جانی نائس ہیش", "news_head": "ضروری نوٹس سنو جانی", "got_it": "سمجھ گیا جانی",
         "welcome": "نائس ہیش · مائننگ کا مال تیار ہے", "launch": "فُل لائیو تباھی 31 مئی 2026",
         "marquee": "جانی ابھی انلاک کرو اور مال نکالنا شروع کرو! کوئی لمبا چکر نہیں ہے، بٹن دباتے ہی کمائی سیدھی جیب میں آتی ہے مِنتو میں!",
-        "assets_title": "کل مال پانی", "invest_lbl": "انوسٹ والٹ اکاؤنٹ", "comm_lbl": "کمیشن वाला والٹ",
+        "assets_title": "کل مال پانی", "invest_lbl": "انوسٹ والٹ اکاؤنٹ", "comm_lbl": "کمیشن والا والٹ",
         "d_btn": "پیسے ڈالیں", "w_btn": "پیسے نکالیں", "v_btn": "وی آئی پی پلانز", "t_btn": "اپنی گینگ", "m_btn": "مائننگ فین", "me_btn": "میرا اکاؤنٹ",
         "log_title": "لائیو پرافٹ کی لسٹ جانی", "partners": "بڑے بڑے برانڈز", "curr_v": "تمہارا ابھی کا لیول:", "my_d": "تمہارا ٹوٹل انوسٹ مال:",
         "req_m": "کم از کم انٹری فیس:", "day_r": "روزانہ کا پکا پرافٹ:", "acc_c": "کلاؤڈ مائننگ دھڑا دھڑ جاری ہے",
@@ -65,7 +65,7 @@ DICTIONARY = {
         "marquee": "افتح واربح أول أرباحك الآن! لا انتظار ، لا عمليات معقدة ، الأرباح تصل فورًا بعد الفتح.",
         "assets_title": "إجمالي الأصول", "invest_lbl": "محفظة الاستثمار", "comm_lbl": "محفظة العمولات",
         "d_btn": "إيداع", "w_btn": "سحب", "v_btn": "خطة VIP", "t_btn": "فريقي", "m_btn": "تعدين", "me_btn": "حسابي",
-        "log_title": "سجل عمليات السحب المباشر", "partners": "الشركاء العالميون", "curr_vip": "مستوى VIP الحالي:", "my_d": "إيداعي النشط:",
+        "log_title": "سجل عمليات السحب المباشر", "curr_v": "مستوى VIP الحالي:", "my_d": "إيداعي النشط:",
         "req_m": "الحد الأدنى للمشاركة:", "day_r": "العائد اليومي التلقائي:", "acc_c": "تراكم العملات المشفرة مباشرة",
         "eng_s": "حالة محرك السحاب:", "act_run": "نشط ويعمل فورا", "inv_id": "رمز الدعوة الشخصي",
         "inv_lnk": "مشاركة رابط التسجيل", "firewall": "جدار حماية نايس هاش", "email_lbl": "بريد الحساب:",
@@ -164,7 +164,7 @@ st.markdown("""
 footer, .stDeployButton, #MainMenu, [data-testid="stStatusWidget"], [data-testid="stHeader"] { display: none !important; }
 html, body, .stApp { background-color: #12161a !important; color: #ffffff !important; font-family: 'Inter', sans-serif !important; }
 
-/* Perfect Mobile Canvas Frame Boundaries */
+/* Perfect Mobile Canvas Frame Boundaries Without Dynamic Stretching */
 [data-testid="stVerticalBlock"] { max-width: 440px !important; margin: 0 auto !important; padding: 12px !important; background: #1c2127 !important; min-height: 100vh; }
 
 /* Exact Original NiceHash Header Mark styling */
@@ -190,7 +190,7 @@ html, body, .stApp { background-color: #12161a !important; color: #ffffff !impor
 @keyframes spinHardware { 100% { transform: rotate(360deg); } }
 .fan-center-core { position: absolute; width: 34px; height: 34px; background: #171c24; border: 2px solid #ffffff; border-radius: 50%; color: #ffffff; font-weight: 800; font-size: 11px; line-height: 30px; text-align: center; }
 
-/* Custom Streamlit Buttons Injection Layer overrides */
+/* Custom Streamlit Buttons Global Modification */
 div.stButton > button {
     background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%) !important; color: #ffffff !important; font-weight: 700 !important; border-radius: 8px !important; width: 100% !important; border: none !important; padding: 12px !important; box-shadow: 0 4px 12px rgba(255,85,0,0.25); text-transform: uppercase; font-size: 13px !important;
 }
@@ -278,6 +278,7 @@ if st.session_state.active_tab == "Home":
     </div>
     """, unsafe_allow_html=True)
     
+    # 100% REAL DYNAMIC REDIRECTIONS
     grid_blocks = st.columns(4)
     with grid_blocks[0]:
         if st.button(f"🏛️\n{L['d_btn']}", key="h_grid_deposit_action"):
@@ -320,7 +321,7 @@ elif st.session_state.active_tab == "VIP":
         </div>
         """, unsafe_allow_html=True)
 
-# --- 6.3 ACTIVE MINER ENGINE CALCULATOR TAB ---
+# --- 6.3 ACTIVE MINER ENGINE TAB ---
 elif st.session_state.active_tab == "Mining":
     st.markdown("""
     <div class="cooling-fan-hardware"><div class="fan-blades-wing"></div><div class="fan-center-core">⚡</div></div>
@@ -346,7 +347,7 @@ elif st.session_state.active_tab == "Mining":
         else:
             st.toast("Accumulating mining blocks...")
 
-# --- 6.4 REFERRAL LOGISTIC NETWORKS ---
+# --- 6.4 REFERRAL NETWORKS ---
 elif st.session_state.active_tab == "Team":
     st.markdown(f"""
     <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642;">
@@ -359,7 +360,7 @@ elif st.session_state.active_tab == "Team":
     </div>
     """, unsafe_allow_html=True)
 
-# --- 6.5 USER ACCOUNTS PROFILE VAULTS ---
+# --- 6.5 USER ACCOUNTS PROFILE ---
 elif st.session_state.active_tab == "Me":
     if not st.session_state.logged_in:
         st.markdown(f"<h4 style='text-align:center; color:#ff6a00; margin-bottom:15px;'>{L['firewall']}</h4>", unsafe_allow_html=True)
@@ -413,18 +414,18 @@ elif st.session_state.active_tab == "Me":
             st.rerun()
 
 # ==============================================================================
-# --- 7. CORE RUNTIME NAVIGATION BUTTON REGISTRY ROW ---
+# --- 7. STABLE FIXED BOTTOM NAVIGATION REGISTRY (ZERO OVERLAP EXTRA SPACE) ---
 # ==============================================================================
-st.markdown("<div style='margin-top:35px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='margin-top:25px;'></div>", unsafe_allow_html=True)
 nav_grid = st.columns(5)
 
 with nav_grid[0]:
-    if st.button(f"🏠\nHome", key="n_h_f"): st.session_state.active_tab = "Home"; st.rerun()
+    if st.button("🏠\nHome", key="n_h_f_fixed"): st.session_state.active_tab = "Home"; st.rerun()
 with nav_grid[1]:
-    if st.button(f"👑\nVIP", key="n_v_f"): st.session_state.active_tab = "VIP"; st.rerun()
+    if st.button("👑\nVIP", key="n_v_f_fixed"): st.session_state.active_tab = "VIP"; st.rerun()
 with nav_grid[2]:
-    if st.button(f"⚡\nMine", key="n_m_f"): st.session_state.active_tab = "Mining"; st.rerun()
+    if st.button("⚡\nMine", key="n_m_f_fixed"): st.session_state.active_tab = "Mining"; st.rerun()
 with nav_grid[3]:
-    if st.button(f"👥\nTeam", key="n_t_f"): st.session_state.active_tab = "Team"; st.rerun()
+    if st.button("👥\nTeam", key="n_t_f_fixed"): st.session_state.active_tab = "Team"; st.rerun()
 with nav_grid[4]:
-    if st.button(f"👤\nMe", key="n_me_f"): st.session_state.active_tab = "Me"; st.rerun()
+    if st.button("👤\nMe", key="n_me_f_fixed"): st.session_state.active_tab = "Me"; st.rerun()
