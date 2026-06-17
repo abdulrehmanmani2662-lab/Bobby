@@ -1,3 +1,12 @@
+# ==============================================================================
+# --- 0. FORCE COMPATIBILITY SHIELD (CRITICAL FOR PYTHON 3.14 BYPASS) ---
+# ==============================================================================
+import os
+import sys
+
+# Google Protobuf ke fast C++ engine ko block karke pure-python par switch karta hai
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+
 import streamlit as st
 import sqlite3
 import random
@@ -118,11 +127,6 @@ html, body, .stApp { background-color: #12161a !important; color: #ffffff !impor
 @keyframes spinHardware { 100% { transform: rotate(360deg); } }
 .fan-center-core { position: absolute; width: 34px; height: 34px; background: #171c24; border: 2px solid #00f0ff; border-radius: 50%; color: #00f0ff; font-weight: 800; font-size: 11px; line-height: 30px; text-align: center; box-shadow: 0 0 8px #00f0ff55; }
 
-/* Global Bottom Mobile Navigation Menu Bar Styling Frame */
-.nh-bottom-nav-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: #171c24; border-top: 1px solid #2a313a; justify-content: space-around; padding: 10px 0; z-index: 99999; max-width: 460px; margin: 0 auto; }
-.nav-item-action { background: none !important; border: none !important; color: #a0aec0 !important; display: flex; flex-direction: column; align-items: center; font-size: 11px !important; font-weight: 600; cursor: pointer; }
-.nav-item-action.active { color: #ff6a00 !important; }
-
 /* Custom Inputs Overwrites */
 div[data-testid="stTextInput"] input, div[data-testid="stNumberInput"] input, div[data-testid="stSelectbox"] div[data-baseweb="select"] {
     background-color: #21272f !important; color: #ffffff !important; border: 1px solid #2e3742 !important; border-radius: 10px !important; padding: 12px !important; font-weight: 600 !important;
@@ -192,14 +196,12 @@ if st.session_state.show_news and st.session_state.active_tab == "Home":
 
 # --- TAB 1: HOME PANEL (`1000078177.jpg`) ---
 if st.session_state.active_tab == "Home":
-    # Main Sliding Aesthetic Banner
     st.markdown("""
     <div style="width:100%; height:130px; background:linear-gradient(45deg, #0f1115 25%, #232932 25%, #232932 50%, #0f1115 50%, #0f1115 75%, #232932 75%); background-size:40px 40px; border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #2e3742; box-shadow:inset 0 0 20px #000;">
         <div style="font-size:26px; font-weight:900; color:#ff6a00; letter-spacing:3px; text-shadow:0 0 10px rgba(255,106,0,0.5);">nice<span style="color:#ffffff;">hash</span></div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Marquee Line Block
     st.markdown("""
     <div class="marquee-alert-box">
         <span style="color:#ff6a00; font-weight:700; margin-right:5px;">📢</span>
@@ -207,7 +209,6 @@ if st.session_state.active_tab == "Home":
     </div>
     """, unsafe_allow_html=True)
     
-    # Assets Display Card Block
     st.markdown(f"""
     <div class="asset-premium-card">
         <div class="asset-total-title">Total assets</div>
@@ -217,41 +218,29 @@ if st.session_state.active_tab == "Home":
     </div>
     """, unsafe_allow_html=True)
     
-    # Action Icons Grid
     st.markdown("""
     <div class="grid-icons-container">
-        <div onclick="document.getElementById('nav_me').click();">
-            <div class="icon-box-item">🏛️</div><div class="icon-label-item">Deposit</div>
-        </div>
-        <div>
-            <div class="icon-box-item">🏧</div><div class="icon-label-item">Withdraw</div>
-        </div>
-        <div>
-            <div class="icon-box-item">👑</div><div class="icon-label-item">VIP</div>
-        </div>
-        <div>
-            <div class="icon-box-item">💡</div><div class="icon-label-item">Events</div>
-        </div>
+        <div><div class="icon-box-item">🏛️</div><div class="icon-label-item">Deposit</div></div>
+        <div><div class="icon-box-item">🏧</div><div class="icon-label-item">Withdraw</div></div>
+        <div><div class="icon-box-item">👑</div><div class="icon-label-item">VIP</div></div>
+        <div><div class="icon-box-item">💡</div><div class="icon-label-item">Events</div></div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Core Analytics Block Grid (`1000078178.jpg`)
     c1, c2 = st.columns(2)
     with c1:
         st.markdown("<div style='background:#1e252e; border-radius:12px; padding:15px; text-align:center; border:1px solid #2b333e;'><h3 style='margin:0 0 5px 0; color:#fff; font-size:18px;'>1,949,641.00</h3><small style='color:#a0aec0;'>Total users</small></div>", unsafe_allow_html=True)
     with c2:
         st.markdown("<div style='background:#1e252e; border-radius:12px; padding:15px; text-align:center; border:1px solid #2b333e;'><h3 style='margin:0 0 5px 0; color:#ff6a00; font-size:18px;'>$31,337,652,065</h3><small style='color:#a0aec0;'>Total output</small></div>", unsafe_allow_html=True)
         
-    # Withdrawal Alerts Live Frame
     st.markdown("<div style='font-size:14px; font-weight:700; margin:15px 0 8px 2px; color:#ff6a00; text-transform:uppercase;'>Withdraw log</div>", unsafe_allow_html=True)
     for log_item in generate_fake_withdrawals():
         st.markdown(f"<div style='background:#212730; padding:10px 15px; border-radius:10px; margin-bottom:8px; font-size:12px; border:1px solid #2c3440; display:flex; justify-content:space-between;'>{log_item}</div>", unsafe_allow_html=True)
 
-    # Partners System Layout Blocks (`1000078179.jpg`)
     st.markdown("<div style='font-size:14px; font-weight:700; margin:15px 0 8px 2px; color:#a0aec0;'>Partners</div>", unsafe_allow_html=True)
     st.markdown("<div style='background:#1e252e; border-radius:12px; padding:12px; text-align:center; font-weight:700; font-size:12px; color:#ff6a00; border:1px solid #2b333e;'>BINANCE &nbsp;&bull;&nbsp; ETHEREUM &nbsp;&bull;&nbsp; BITMAIN &nbsp;&bull;&nbsp; TRON &nbsp;&bull;&nbsp; TETHER &nbsp;&bull;&nbsp; COINBASE</div>", unsafe_allow_html=True)
 
-# --- TAB 2: VIP PANEL (`1000078174.jpg`) ---
+# --- TAB 2: VIP PANEL ---
 elif st.session_state.active_tab == "VIP":
     st.markdown(f"""
     <div style="background:#212730; padding:15px; border-radius:14px; border:1px solid #2e3642; margin-bottom:15px;">
@@ -262,7 +251,6 @@ elif st.session_state.active_tab == "VIP":
     
     st.markdown("<div style='background:#ff6a00; color:#fff; text-align:center; padding:12px; font-weight:700; border-radius:10px; font-size:14px; box-shadow:0 4px 12px rgba(255,106,0,0.3); margin-bottom:20px;'>DEPOSIT TO UPGRADE</div>", unsafe_allow_html=True)
     
-    # Render VIP Tiers Loop Configuration Layout Data Matrix
     for i in range(1, 6):
         min_amt = [0, 10, 100, 1000, 5000, 10000][i]
         max_amt = [0, 1000, 10000, 5000, 10000, 50000][i]
@@ -277,9 +265,8 @@ elif st.session_state.active_tab == "VIP":
         </div>
         """, unsafe_allow_html=True)
 
-# --- TAB 3: MINING FAN SIMULATOR MODULE (`1000078171.jpg`) ---
+# --- TAB 3: MINING FAN SIMULATOR ---
 elif st.session_state.active_tab == "Mining":
-    # Custom Hardware Fan Rotating Component Live Injector Block HTML
     st.markdown("""
     <div class="fan-simulator-canvas">
         <div class="cooling-fan-hardware">
@@ -303,20 +290,18 @@ elif st.session_state.active_tab == "Mining":
     
     st.markdown("<div style='margin-top:15px;'></div>", unsafe_allow_html=True)
     if st.button("BOOST HASHRATE", key="boost_hashrate_btn_action"):
-        st.toast("Redirecting to verification upgrade lines...")
+        st.toast("Boosting lines...")
 
-# --- TAB 4: TEAM / REFERRAL MANAGEMENT MODULE (`1000078169.jpg`) ---
+# --- TAB 4: TEAM / REFERRAL MANAGEMENT ---
 elif st.session_state.active_tab == "Team":
     st.markdown(f"""
     <div style="background:#212730; padding:15px; border-radius:14px; border:1px solid #2e3642; position:relative;">
         <div style="position:absolute; right:15px; top:15px; background:linear-gradient(90deg, #ff8c00, #ff5500); color:#fff; font-size:11px; padding:4px 10px; font-weight:700; border-radius:12px;">Commission detail »</div>
-        
         <div style="font-size:12px; color:#a0aec0; margin-top:15px;">Invite code:</div>
         <div style="display:flex; gap:10px; align-items:center; margin-top:4px;">
             <span style="font-size:22px; font-weight:800; color:#fff;">{user_invite}</span>
             <span style="background:#ff6a00; color:#fff; font-size:11px; padding:2px 8px; border-radius:4px; font-weight:700;">Copy</span>
         </div>
-        
         <div style="font-size:12px; color:#a0aec0; margin-top:15px;">Share your link & earn:</div>
         <div style="background:#171c24; padding:8px 12px; border-radius:8px; font-size:11px; color:#cbd5e0; word-break:break-all; margin-top:5px; border:1px solid #2a313a;">
             https://nicehash.one/#/reg?invite_code={user_invite}
@@ -324,7 +309,6 @@ elif st.session_state.active_tab == "Team":
     </div>
     """, unsafe_allow_html=True)
     
-    # Grid Multipliers Status Panel Display
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
     t_c1, t_c2 = st.columns(2)
     with t_c1:
@@ -334,22 +318,19 @@ elif st.session_state.active_tab == "Team":
         st.markdown("<div style='background:#1e252e; padding:12px; border-radius:10px; border:1px solid #2c3440;'><small style='color:#a0aec0;'>Ref commissions</small><h4 style='margin:5px 0 0 0; color:#fff;'>$0</h4></div>", unsafe_allow_html=True)
         st.markdown("<div style='background:#1e252e; padding:12px; border-radius:10px; border:1px solid #2c3440; margin-top:10px;'><small style='color:#a0aec0;'>Team withdrawals</small><h4 style='margin:5px 0 0 0; color:#fff;'>$0</h4></div>", unsafe_allow_html=True)
 
-# --- TAB 5: ME / VAULT PROFILES SECURITY SHIELDS (`1000078168.jpg`) ---
+# --- TAB 5: ME / VAULT PROFILES ---
 elif st.session_state.active_tab == "Me":
     if not st.session_state.logged_in:
         st.markdown("<h4 style='text-align:center; color:#ff6a00;'>SECURE TUNNEL ACCESS</h4>", unsafe_allow_html=True)
-        
-        if st.session_state.auth_mode == "Login":
-            u_in = st.text_input("Email / Phone String Account:", placeholder="Enter account handle", key="nh_auth_username_field")
-            p_in = st.text_input("Password Key:", type="password", placeholder="••••••••", key="nh_auth_password_field")
-            if st.button("LOG IN NOW", key="execute_nh_login_gate_btn"):
-                res = query_db("SELECT username FROM users WHERE username=? AND password=?", (u_in.strip(), p_in.strip()), one=True)
-                if res:
-                    st.session_state.logged_in = True
-                    st.session_state.current_user = res[0]
-                    st.rerun()
-                else: st.error("Authentication mapping criteria mismatch anomaly.")
-            st.markdown("<p style='text-align:center; font-size:12px; margin-top:10px;'>No account? <span style='color:#ff6a00; cursor:pointer;' onclick=''>Sign up</span></p>", unsafe_allow_html=True)
+        u_in = st.text_input("Email / Phone Account:", placeholder="Enter account handle", key="nh_auth_username_field")
+        p_in = st.text_input("Password Key:", type="password", placeholder="••••••••", key="nh_auth_password_field")
+        if st.button("LOG IN NOW", key="execute_nh_login_gate_btn"):
+            res = query_db("SELECT username FROM users WHERE username=? AND password=?", (u_in.strip(), p_in.strip()), one=True)
+            if res:
+                st.session_state.logged_in = True
+                st.session_state.current_user = res[0]
+                st.rerun()
+            else: st.error("Invalid handle credentials.")
     else:
         st.markdown(f"""
         <div style="background:#212730; padding:15px; border-radius:14px; border:1px solid #2e3642; display:flex; align-items:center; gap:12px;">
@@ -362,25 +343,24 @@ elif st.session_state.active_tab == "Me":
         """, unsafe_allow_html=True)
         
         st.markdown("<div style='margin-top:15px;'></div>", unsafe_allow_html=True)
-        # Financial Interfaces Portal Action Grid
         f_c1, f_c2 = st.columns(2)
         with f_c1:
             amount_dep = st.number_input("Deposit Value ($):", min_value=10.0, step=10.0, key="nh_deposit_value_field_cell")
             if st.button("SUBMIT INTENT", key="nh_deposit_submit_action_gate"):
                 query_db("UPDATE users SET invest_wallet = invest_wallet + ? WHERE username=?", (amount_dep, st.session_state.current_user), commit=True)
-                st.success("Balance cells updated cleanly.")
+                st.success("Deposit processed.")
                 st.rerun()
         with f_c2:
             amount_wit = st.number_input("Withdraw Value ($):", min_value=10.0, step=10.0, key="nh_withdraw_value_field_cell")
             if st.button("EXTRACT ASSETS", key="nh_withdraw_submit_action_gate"):
                 if invest_bal >= amount_wit:
                     query_db("UPDATE users SET invest_wallet = invest_wallet - ? WHERE username=?", (amount_wit, st.session_state.current_user), commit=True)
-                    st.success("Extraction queue logged.")
+                    st.success("Withdrawal logged.")
                     st.rerun()
-                else: st.error("Insufficient bounds limits.")
+                else: st.error("Insufficient balance bounds.")
                 
         st.markdown("<hr style='border-color:#2a313a;'>", unsafe_allow_html=True)
-        if st.button("LOG OUT ENGINE SECURE DISCONNECT", key="nh_logout_action_forced_btn"):
+        if st.button("LOG OUT ENGINE", key="nh_logout_action_forced_btn"):
             st.session_state.logged_in = False
             st.session_state.current_user = ""
             st.rerun()
@@ -389,6 +369,7 @@ elif st.session_state.active_tab == "Me":
 # --- 6. PREMIUM NAV BAR RENDERING AT THE BOTTOM ---
 # ==============================================================================
 st.markdown("<div style='margin-top:70px;'></div>", unsafe_allow_html=True)
+# Safe inline menu bar rendering engine
 nav_cols = st.columns(5)
 with nav_cols[0]: 
     if st.button("🏠\nHome", key="nav_home_btn"): st.session_state.active_tab = "Home"; st.rerun()
