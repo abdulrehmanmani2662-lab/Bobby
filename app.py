@@ -51,7 +51,7 @@ DICTIONARY = {
         "marquee": "جانی ابھی انلاک کرو اور مال نکالنا شروع کرو! کوئی لمبا چکر نہیں ہے، بٹن دباتے ہی کمائی سیدھی جیب میں آتی ہے مِنتو میں!",
         "assets_title": "کل مال پانی", "invest_lbl": "انوسٹ والٹ اکاؤنٹ", "comm_lbl": "کمیشن والا والٹ",
         "d_btn": "پیسے ڈالیں", "w_btn": "پیسے نکالیں", "v_btn": "وی آئی پی پلانز", "t_btn": "اپنی گینگ", "m_btn": "مائننگ فین", "me_btn": "میرا اکاؤنٹ",
-        "log_title": "لائیو پرافٹ کی لسٹ جانی", "partners": "بڑے بڑے برانڈز", "curr_v": "تمہارا ابھی کا لیول:", "my_d": "تمہارا ٹوٹل انوسٹ مال:",
+        "log_title": "لائیو پرافٹ کی لسٹ جانی", "curr_v": "تمہارا ابھی کا لیول:", "my_d": "تمہارا ٹوٹل انوسٹ مال:",
         "req_m": "کم از کم انٹری فیس:", "day_r": "روزانہ کا پکا پرافٹ:", "acc_c": "کلاؤڈ مائننگ دھڑا دھڑ جاری ہے",
         "eng_s": "انجن کا سین کیا ہے:", "act_run": "فُل سپیڈ میں چل رہا ہے جانی", "inv_id": "تمہارا کوڈ لوٹو اب",
         "inv_lnk": "یہ لنک گینگ کو بھیجو اور کمیشن کھاؤ", "firewall": "نائس ہیش سیکیورٹی فائر وال لاک", "email_lbl": "اپنی ای میل لکھو جانی:",
@@ -150,59 +150,65 @@ user_nodes_pool = ['a***8h@gmail.com', 'k***22@yahoo.com', 'n***_hash@live.com',
 def generate_live_withdrawal_ledger():
     logs = []
     random.seed(int(time.time() / 60))
-    for i in range(4):
+    for i in range(3):  # Reduced slightly to compress screen space height
         node = random.choice(user_nodes_pool)
         val = round(random.uniform(20.00, 4890.00), 2)
         logs.append(f"⚡ Node {node} extracted <b style='color:#ff6a00;'>${val:,.2f}</b> seamlessly.")
     return logs
 
 # ==============================================================================
-# --- 4. GRAPHIC INTERFACE DESIGN AND HIGH CONFIGURATION SYSTEM ---
+# --- 4. ADVANCED CSS SHIELD FOR ABSOLUTE SPACING COMPRESSION ---
 # ==============================================================================
 st.markdown("""
 <style>
 footer, .stDeployButton, #MainMenu, [data-testid="stStatusWidget"], [data-testid="stHeader"] { display: none !important; }
 html, body, .stApp { background-color: #12161a !important; color: #ffffff !important; font-family: 'Inter', sans-serif !important; }
 
-/* Perfect Mobile Canvas Frame Boundaries Without Dynamic Stretching */
-[data-testid="stVerticalBlock"] { max-width: 440px !important; margin: 0 auto !important; padding: 12px !important; background: #1c2127 !important; min-height: 100vh; }
+/* Eliminate all core streamlit native margins and blank heights */
+.block-container { padding-top: 5px !important; padding-bottom: 5px !important; max-width: 440px !important; margin: 0 auto !important; }
+[data-testid="stVerticalBlock"] > div { padding: 0px !important; margin: 0px !important; gap: 0px !important; }
+div[class*="stHorizontalBlock"] { gap: 4px !important; margin: 0px !important; padding: 0px !important; }
+
+/* Perfect Fixed Mobile Framework Container Bounds */
+[data-testid="stVerticalBlock"] { max-width: 440px !important; margin: 0 auto !important; padding: 10px !important; background: #1c2127 !important; min-height: 100vh; overflow: hidden; }
 
 /* Exact Original NiceHash Header Mark styling */
-.nh-top-bar { display: flex; justify-content: space-between; align-items: center; background: #1c2127; padding-bottom: 4px; }
-.nh-logo-title { font-size: 25px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
+.nh-top-bar { display: flex; justify-content: space-between; align-items: center; background: #1c2127; padding-bottom: 2px; }
+.nh-logo-title { font-size: 24px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
 .nh-logo-icon { width: 22px; height: 22px; background: #ff6a00; border-radius: 50%; display: inline-block; position: relative; }
 .nh-logo-icon::after { content: ''; position: absolute; width: 10px; height: 10px; background: #1c2127; left: 6px; top: 6px; border-radius: 50%; }
 
 /* Asset Display Card styles */
-.asset-premium-card { background: linear-gradient(135deg, #252b35 0%, #171c24 100%); border-radius: 12px; padding: 20px; border: 1px solid #2d3642; margin-bottom: 15px; }
+.asset-premium-card { background: linear-gradient(135deg, #252b35 0%, #171c24 100%); border-radius: 12px; padding: 14px; border: 1px solid #2d3642; margin-top: 10px; margin-bottom: 10px; }
 .asset-total-title { color: #8a99ad; font-size: 13px; font-weight: 600; text-transform: uppercase; }
-.asset-total-value { font-size: 32px; font-weight: 700; color: #ffffff; margin: 6px 0 14px 0; font-family: monospace; }
-.sub-wallet-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12.5px; color: #cbd5e0; }
+.asset-total-value { font-size: 30px; font-weight: 700; color: #ffffff; margin: 4px 0 10px 0; font-family: monospace; }
+.sub-wallet-row { display: flex; justify-content: space-between; padding: 6px 0; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: #cbd5e0; }
 
 /* Marquee Scroller Box styles */
-.marquee-alert-box { display: flex; align-items: center; background: #171c24; border-radius: 8px; padding: 8px 12px; border: 1px solid #2a313a; margin-bottom: 15px; font-size: 12px; overflow: hidden; }
-.marquee-text-flow { white-space: nowrap; animation: textScroll 18s linear infinite; color: #cbd5e0; font-weight: 500; }
+.marquee-alert-box { display: flex; align-items: center; background: #171c24; border-radius: 8px; padding: 6px 10px; border: 1px solid #2a313a; margin-top: 10px; margin-bottom: 10px; font-size: 11px; overflow: hidden; }
+.marquee-text-flow { white-space: nowrap; animation: textScroll 18s linear infinite; color: #cbd5e0; }
 @keyframes textScroll { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
 
 /* Rotating Fan Component Graphic designs */
-.cooling-fan-hardware { width: 135px; height: 135px; background: radial-gradient(circle, #2d3542 0%, #171c24 100%); border-radius: 50%; border: 4px solid #ff6a00; margin: 25px auto; display: flex; align-items: center; justify-content: center; position: relative; }
-.fan-blades-wing { width: 105px; height: 105px; background: repeating-conic-gradient(from 0deg, #ff6a00 0deg 30deg, #171c24 30deg 60deg); border-radius: 50%; animation: spinHardware 0.8s linear infinite; }
+.cooling-fan-hardware { width: 130px; height: 130px; background: radial-gradient(circle, #2d3542 0%, #171c24 100%); border-radius: 50%; border: 4px solid #ff6a00; margin: 15px auto; display: flex; align-items: center; justify-content: center; position: relative; }
+.fan-blades-wing { width: 100px; height: 100px; background: repeating-conic-gradient(from 0deg, #ff6a00 0deg 30deg, #171c24 30deg 60deg); border-radius: 50%; animation: spinHardware 0.8s linear infinite; }
 @keyframes spinHardware { 100% { transform: rotate(360deg); } }
-.fan-center-core { position: absolute; width: 34px; height: 34px; background: #171c24; border: 2px solid #ffffff; border-radius: 50%; color: #ffffff; font-weight: 800; font-size: 11px; line-height: 30px; text-align: center; }
+.fan-center-core { position: absolute; width: 32px; height: 32px; background: #171c24; border: 2px solid #ffffff; border-radius: 50%; color: #ffffff; font-weight: 800; font-size: 11px; line-height: 28px; text-align: center; }
 
-/* Custom Streamlit Buttons Global Modification */
+/* Custom Streamlit Buttons Global Modification Layout Packing */
 div.stButton > button {
-    background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%) !important; color: #ffffff !important; font-weight: 700 !important; border-radius: 8px !important; width: 100% !important; border: none !important; padding: 12px !important; box-shadow: 0 4px 12px rgba(255,85,0,0.25); text-transform: uppercase; font-size: 13px !important;
+    background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%) !important; color: #ffffff !important; font-weight: 700 !important; border-radius: 8px !important; width: 100% !important; border: none !important; padding: 8px !important; box-shadow: 0 4px 12px rgba(255,85,0,0.25); text-transform: uppercase; font-size: 12px !important; margin: 0px !important;
 }
 
 /* Stable Non-breaking Inlined Notice Card layout wrapper */
 .news-modal-inline-container {
-    background: #1c2127; border: 1px solid #ff6a00; border-radius: 12px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    background: #1c2127; border: 1px solid #ff6a00; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 </style>
 """, unsafe_allow_html=True)
 
-# Layout Setup for Brand Title and Language Selection row
+# Layout Setup for Brand Title and Language Selection row (Tight Bound margins)
+st.markdown("<div style='margin-top: 2px;'></div>", unsafe_allow_html=True)
 h_col1, h_col2 = st.columns([1.8, 1.2])
 with h_col1:
     st.markdown("""
@@ -218,7 +224,7 @@ with h_col2:
         key="app_runtime_language_dictionary_selector"
     )
 
-st.markdown("<div style='border-bottom: 1px solid #2a313a; margin-bottom: 15px; margin-top: 2px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='border-bottom: 1px solid #2a313a; margin-bottom: 8px; margin-top: 2px;'></div>", unsafe_allow_html=True)
 
 # Map dynamic pointer array shortcut reference
 L = DICTIONARY[selected_language_key]
@@ -229,24 +235,19 @@ L = DICTIONARY[selected_language_key]
 if st.session_state.show_inline_news and st.session_state.active_tab == "Home":
     st.markdown(f"""
     <div class="news-modal-inline-container">
-        <h3 style="color:#ffffff; margin:0 0 12px 0; font-weight:800; font-size:22px; text-align:center;">{L["news_head"]}</h3>
-        <div style="font-size:13px; color:#cbd5e0; line-height:1.6; margin-bottom: 15px;">
-            🎉 <b>{L["welcome"]}</b><br>
-            <b>{L["launch"]}</b><br><br>
-            💡 Unlock and earn your first earnings now!<br>
-            No waiting, no complicated operations, earnings arrive instantly.<br>
-            <hr style="border-color:rgba(255,255,255,0.08); margin:10px 0;">
-            <table style="width:100%; border-collapse:collapse; text-align:center; color:#fff; font-size:11px;">
+        <h3 style="color:#ffffff; margin:0 0 10px 0; font-weight:800; font-size:20px; text-align:center;">{L["news_head"]}</h3>
+        <div style="font-size:12px; color:#cbd5e0; line-height:1.5; margin-bottom: 10px;">
+            🎉 <b>{L["welcome"]}</b> - <b>{L["launch"]}</b><br>
+            💡 Unlock and earn your first earnings now! Instant payouts.
+            <table style="width:100%; border-collapse:collapse; text-align:center; color:#fff; font-size:11px; margin-top:8px;">
                 <tr style="background:#222933; font-weight:700;">
-                    <th style="padding:6px; border:1px solid #2d3642;">Grade</th>
-                    <th style="padding:6px; border:1px solid #2d3642;">Investment</th>
-                    <th style="padding:6px; border:1px solid #2d3642;">Daily</th>
-                    <th style="padding:6px; border:1px solid #2d3642;">Yield</th>
+                    <th style="padding:4px; border:1px solid #2d3642;">Grade</th>
+                    <th style="padding:4px; border:1px solid #2d3642;">Investment</th>
+                    <th style="padding:4px; border:1px solid #2d3642;">Daily</th>
                 </tr>
-                <tr><td>VIP1</td><td>10.00</td><td>3.00</td><td style="color:#00ffcc;">30%</td></tr>
-                <tr><td>VIP2</td><td>100.00</td><td>32.00</td><td style="color:#00ffcc;">32%</td></tr>
-                <tr><td>VIP3</td><td>1000.00</td><td>340.00</td><td style="color:#00ffcc;">34%</td></tr>
-                <tr><td>VIP4</td><td>5000.00</td><td>1800.00</td><td style="color:#00ffcc;">36%</td></tr>
+                <tr><td>VIP1</td><td>10.00</td><td style="color:#00ffcc;">30%</td></tr>
+                <tr><td>VIP2</td><td>100.00</td><td style="color:#00ffcc;">32%</td></tr>
+                <tr><td>VIP3</td><td>1000.00</td><td style="color:#00ffcc;">34%</td></tr>
             </table>
         </div>
     </div>
@@ -254,7 +255,7 @@ if st.session_state.show_inline_news and st.session_state.active_tab == "Home":
     if st.button(L["got_it"], key="dismiss_inline_news_notice_action_panel_trigger"):
         st.session_state.show_inline_news = False
         st.rerun()
-    st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
 
 # ==============================================================================
 # --- 6. CORE OPERATIONAL ROUTES AND BACKEND VIEW CONTROLLERS ---
@@ -263,8 +264,8 @@ if st.session_state.show_inline_news and st.session_state.active_tab == "Home":
 # --- 6.1 HOME TAB SECTION ---
 if st.session_state.active_tab == "Home":
     st.markdown(f"""
-    <div style="width:100%; height:110px; background:linear-gradient(135deg, #252b35 0%, #12161a 100%); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #2d3642; margin-bottom:12px;">
-        <div style="font-size:26px; font-weight:900; color:#ff6a00; letter-spacing:2px;">{L["title"]}</div>
+    <div style="width:100%; height:100px; background:linear-gradient(135deg, #252b35 0%, #12161a 100%); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #2d3642; margin-bottom:8px;">
+        <div style="font-size:24px; font-weight:900; color:#ff6a00; letter-spacing:2px;">{L["title"]}</div>
     </div>
     <div class="marquee-alert-box">
         <span style="color:#ff6a00; margin-right:6px; font-weight:700;">📢</span>
@@ -278,7 +279,7 @@ if st.session_state.active_tab == "Home":
     </div>
     """, unsafe_allow_html=True)
     
-    # 100% REAL DYNAMIC REDIRECTIONS
+    # Grid column block margin controls tight alignment packing
     grid_blocks = st.columns(4)
     with grid_blocks[0]:
         if st.button(f"🏛️\n{L['d_btn']}", key="h_grid_deposit_action"):
@@ -297,16 +298,16 @@ if st.session_state.active_tab == "Home":
             st.session_state.active_tab = "Team"
             st.rerun()
             
-    st.markdown(f"<div style='margin-top:15px; font-size:14px; font-weight:700; margin-bottom:8px; color:#ff6a00;'>{L['log_title']}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='margin-top:10px; font-size:13px; font-weight:700; margin-bottom:6px; color:#ff6a00;'>{L['log_title']}</div>", unsafe_allow_html=True)
     for log in generate_live_withdrawal_ledger():
-        st.markdown(f"<div style='background:#171c24; padding:10px; border-radius:8px; margin-bottom:6px; font-size:12px; border:1px solid #2a313a;'>{log}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='background:#171c24; padding:8px; border-radius:8px; margin-bottom:4px; font-size:11.5px; border:1px solid #2a313a;'>{log}</div>", unsafe_allow_html=True)
 
 # --- 6.2 VIP CONFIGURATION TIERS ---
 elif st.session_state.active_tab == "VIP":
     st.markdown(f"""
-    <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; margin-bottom:15px;">
-        <div style="display:flex; justify-content:space-between; font-size:13px; color:#cbd5e0;"><span>{L["curr_v"]}</span><span style="color:#ff6a00; font-weight:700;">{vip_level}</span></div>
-        <div style="display:flex; justify-content:space-between; font-size:13px; color:#cbd5e0; margin-top:4px;"><span>{L["my_d"]}</span><span style="color:#00ffcc; font-weight:700;">${invest_bal:,.2f}</span></div>
+    <div style="background:#252b35; padding:12px; border-radius:12px; border:1px solid #2d3642; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#cbd5e0;"><span>{L["curr_v"]}</span><span style="color:#ff6a00; font-weight:700;">{vip_level}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#cbd5e0; margin-top:2px;"><span>{L["my_d"]}</span><span style="color:#00ffcc; font-weight:700;">${invest_bal:,.2f}</span></div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -314,10 +315,10 @@ elif st.session_state.active_tab == "VIP":
         min_bounds = [0, 10, 100, 1000, 5000][i]
         yield_ratio = [0, 30, 32, 34, 36][i]
         st.markdown(f"""
-        <div style="background:#171c24; border-radius:12px; padding:15px; border:1px solid #2d3642; margin-bottom:10px;">
-            <div style="font-weight:800; font-size:16px; color:#ff6a00; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:4px; margin-bottom:6px;">VIP {i} Mining Node</div>
-            <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#8a99ad;">{L["req_m"]}</span><span style="color:#fff; font-weight:600;">${min_bounds:,.2f}</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#8a99ad;">{L["day_r"]}</span><span style="color:#00ffcc; font-weight:700;">{yield_ratio:.2f}% / Day</span></div>
+        <div style="background:#171c24; border-radius:12px; padding:12px; border:1px solid #2d3642; margin-bottom:8px;">
+            <div style="font-weight:800; font-size:14px; color:#ff6a00; padding-bottom:2px; margin-bottom:4px;">VIP {i} Mining Node</div>
+            <div style="display:flex; justify-content:space-between; font-size:11.5px;"><span style="color:#8a99ad;">{L["req_m"]}</span><span style="color:#fff; font-weight:600;">${min_bounds:,.2f}</span></div>
+            <div style="display:flex; justify-content:space-between; font-size:11.5px;"><span style="color:#8a99ad;">{L["day_r"]}</span><span style="color:#00ffcc; font-weight:700;">{yield_ratio:.2f}% / Day</span></div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -328,15 +329,15 @@ elif st.session_state.active_tab == "Mining":
     """, unsafe_allow_html=True)
     
     st.markdown(f"""
-    <div style="background:#252b35; padding:20px; border-radius:12px; border:1px solid #2d3642; text-align:center;">
-        <span style="color:#8a99ad; font-size:12px; text-transform:uppercase; letter-spacing:1px;">{L["acc_c"]}</span>
-        <h2 style="margin:8px 0; font-size:28px; color:#ffffff; font-family:monospace;">{st.session_state.crypto_yield_accumulator:.8f} <span style="font-size:14px; color:#ff6a00;">USDT</span></h2>
-        <div style="display:flex; justify-content:space-between; font-size:12px; border-top:1px solid rgba(255,255,255,0.05); padding-top:10px; margin-top:12px;"><span style="color:#cbd5e0;">Node Tier Level</span><span style="color:#ff6a00; font-weight:700;">{vip_level}</span></div>
-        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#cbd5e0;">{L["eng_s"]}</span><span style="color:#00ffcc; font-weight:600;">{L["act_run"]}</span></div>
+    <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; text-align:center;">
+        <span style="color:#8a99ad; font-size:11px; text-transform:uppercase; letter-spacing:1px;">{L["acc_c"]}</span>
+        <h2 style="margin:4px 0; font-size:26px; color:#ffffff; font-family:monospace;">{st.session_state.crypto_yield_accumulator:.8f} <span style="font-size:12px; color:#ff6a00;">USDT</span></h2>
+        <div style="display:flex; justify-content:space-between; font-size:11.5px; border-top:1px solid rgba(255,255,255,0.05); padding-top:8px; margin-top:8px;"><span style="color:#cbd5e0;">Node Tier Level</span><span style="color:#ff6a00; font-weight:700;">{vip_level}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:11.5px;"><span style="color:#cbd5e0;">{L["eng_s"]}</span><span style="color:#00ffcc; font-weight:600;">{L["act_run"]}</span></div>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("<div style='margin-top:15px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
     if st.button(L["extract_b"], key="extract_live_miner_yield_to_wallet_action"):
         if st.session_state.crypto_yield_accumulator > 0:
             query_vault("UPDATE accounts SET commission_wallet = commission_wallet + ? WHERE username=?", (st.session_state.crypto_yield_accumulator, st.session_state.current_user), commit=True)
@@ -353,8 +354,8 @@ elif st.session_state.active_tab == "Team":
     <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642;">
         <span style="font-size:12px; color:#8a99ad;">{L["inv_id"]}</span>
         <h2 style="margin:4px 0; color:#ff6a00; letter-spacing:1px; font-family:monospace;">{user_invite}</h2>
-        <span style="font-size:12px; color:#8a99ad; display:block; margin-top:10px;">{L["inv_lnk"]}</span>
-        <div style="background:#171c24; padding:8px; border-radius:6px; font-size:11px; color:#cbd5e0; word-break:break-all; border:1px solid #2a313a; margin-top:4px;">
+        <span style="font-size:12px; color:#8a99ad; display:block; margin-top:8px;">{L["inv_lnk"]}</span>
+        <div style="background:#171c24; padding:6px; border-radius:6px; font-size:11px; color:#cbd5e0; word-break:break-all; border:1px solid #2a313a; margin-top:4px;">
             https://nicehash.one/#/register?invite_code={user_invite}
         </div>
     </div>
@@ -363,7 +364,7 @@ elif st.session_state.active_tab == "Team":
 # --- 6.5 USER ACCOUNTS PROFILE ---
 elif st.session_state.active_tab == "Me":
     if not st.session_state.logged_in:
-        st.markdown(f"<h4 style='text-align:center; color:#ff6a00; margin-bottom:15px;'>{L['firewall']}</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='text-align:center; color:#ff6a00; margin-bottom:12px;'>{L['firewall']}</h4>", unsafe_allow_html=True)
         user_in = st.text_input(L["email_lbl"], placeholder="demo@gmail.com")
         pass_in = st.text_input(L["pass_lbl"], type="password", placeholder="demo123")
         
@@ -374,12 +375,12 @@ elif st.session_state.active_tab == "Me":
                 st.session_state.current_user = match[0]
                 st.rerun()
             else:
-                st.error("Firewall reject: Mismatched key parameters token.")
+                st.error("Firewall reject: Mismatched token key match.")
     else:
         st.markdown(f"""
-        <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; margin-bottom:15px;">
-            <div style="font-weight:700; font-size:16px; color:#fff;">👤 {st.session_state.current_user}</div>
-            <span style="background:#ff6a00; color:white; font-size:10px; font-weight:800; padding:2px 8px; border-radius:6px; margin-top:4px; display:inline-block;">{vip_level} Security Level Node</span>
+        <div style="background:#252b35; padding:12px; border-radius:12px; border:1px solid #2d3642; margin-bottom:10px;">
+            <div style="font-weight:700; font-size:15px; color:#fff;">👤 {st.session_state.current_user}</div>
+            <span style="background:#ff6a00; color:white; font-size:10px; font-weight:800; padding:2px 8px; border-radius:6px; margin-top:2px; display:inline-block;">{vip_level} Level Node</span>
         </div>
         """, unsafe_allow_html=True)
         
@@ -395,7 +396,7 @@ elif st.session_state.active_tab == "Me":
             time.sleep(0.5)
             st.rerun()
             
-        st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:10px 0;'>", unsafe_allow_html=True)
         
         wth_input = st.number_input(L["wth_lbl"], min_value=10.0, step=10.0, key="me_withdrawal_input_box_field")
         if st.button(L["exec_wth"], key="me_withdrawal_execute_action_trigger_btn"):
@@ -407,7 +408,7 @@ elif st.session_state.active_tab == "Me":
             else:
                 st.error(L["insufficient"])
                 
-        st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:10px 0;'>", unsafe_allow_html=True)
         if st.button(L["disc_b"]):
             st.session_state.logged_in = False
             st.session_state.current_user = ""
@@ -416,7 +417,7 @@ elif st.session_state.active_tab == "Me":
 # ==============================================================================
 # --- 7. STABLE FIXED BOTTOM NAVIGATION REGISTRY (ZERO OVERLAP EXTRA SPACE) ---
 # ==============================================================================
-st.markdown("<div style='margin-top:25px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='margin-top:15px;'></div>", unsafe_allow_html=True)
 nav_grid = st.columns(5)
 
 with nav_grid[0]:
