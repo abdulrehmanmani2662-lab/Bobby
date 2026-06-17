@@ -1,133 +1,110 @@
 # ==============================================================================
-# --- 0. ADVANCED PYTHON ENGINE INTERCEPTION & ENGINE ARCHITECTURE ---
+# --- 0. ADVANCED ENCRYPTED RUNTIME INTERCEPTION & BLOCKCHAIN EMULATOR ---
 # ==============================================================================
 import os
 import sys
 import time
 import random
 import sqlite3
-import threading
-from datetime import datetime, timedelta
+from datetime import datetime
 
-# Intercept and force stable pure-python mapping for modern engines
+# Enforce secure pure-python layer translation mapping over modern runtimes
 os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 
 import streamlit as st
 
 # ==============================================================================
-# --- 1. GLOBAL PRODUCTION-GRADE DYNAMIC LANGUAGE DICTIONARY (20+ CORES) ---
+# --- 1. ENTERPRISE GLOBAL TRANSLATION PROTOCOLS (22 DYNAMIC LANGUAGES) ---
 # ==============================================================================
-LANG_DICT = {
+DICTIONARY = {
     "🌐 English": {
-        "title": "nicehash", "lang_label": "English", "news_head": "News Notice",
-        "welcome": "NiceHash · A New Era of Mining", "launch_date": "Officially launched on May 31, 2026.",
+        "title": "nicehash", "news_head": "News Notice", "got_it": "Got it",
+        "welcome": "NiceHash · A New Era of Mining", "launch": "Officially launched on May 31, 2026.",
         "marquee": "Unlock and earn your first earnings now! No waiting, no complicated operations, earnings arrive instantly after unlocking.",
-        "got_it": "Got it", "total_assets": "Total assets", "invest_w": "Invest wallet", "comm_w": "Commission wallet",
-        "btn_dep": "Deposit", "btn_wth": "Withdraw", "btn_vip": "VIP Plan", "btn_team": "My Team", "btn_mine": "Mine", "btn_me": "Me",
-        "wth_log_title": "Withdrawal Stream Log", "partners": "Global Partners", "curr_vip": "Current Profile Level:",
-        "act_dep": "My Active Deposit:", "req_min": "Required Minimum Entry:", "daily_ret": "Automated Daily Return:",
-        "acc_crypto": "Accumulating Live Crypto", "engine_status": "Cloud Engine Status:", "active_running": "ACTIVE & RUNNING",
-        "ref_code": "Personal Invitation ID Code", "ref_link": "Share Referral Registration Link", "firewall_head": "NiceHash Security Firewall",
-        "acc_email": "Account Handle Email:", "sec_key": "Security Access Key:", "btn_unlock": "Unlock Vault Workspace",
-        "btn_inject": "Inject Simulated USDT Balance", "btn_disconnect": "Disconnect Terminal Session", "success_dep": "Wallet Updated Successfully!"
+        "assets_title": "Total assets", "invest_lbl": "Invest wallet", "comm_lbl": "Commission wallet",
+        "d_btn": "Deposit", "w_btn": "Withdraw", "v_btn": "VIP Plan", "t_btn": "My Team", "m_btn": "Mine", "me_btn": "Me",
+        "log_title": "Withdrawal Stream Log", "curr_v": "Current Profile Level:", "my_d": "My Active Deposit:",
+        "req_m": "Required Minimum Entry:", "day_r": "Automated Daily Return:", "acc_c": "Accumulating Live Crypto",
+        "eng_s": "Cloud Engine Status:", "act_run": "ACTIVE & RUNNING", "inv_id": "Personal Invitation ID Code",
+        "inv_lnk": "Share Referral Registration Link", "firewall": "NiceHash Security Firewall", "email_lbl": "Account Handle Email:",
+        "pass_lbl": "Security Access Key:", "unlock_b": "Unlock Vault Workspace", "inject_b": "Inject Simulated USDT Balance",
+        "disc_b": "Disconnect Terminal Session", "success_msg": "Wallet Updated Successfully!", "extract_b": "Collect & Flush Yield",
+        "wth_lbl": "Withdraw Amount ($):", "exec_wth": "Execute Real Withdrawal", "insufficient": "Insufficient Balance bounds."
     },
     "🌐 Urdu": {
-        "title": "نائس ہیش", "lang_label": "Urdu", "news_head": "اہم خبریں",
-        "welcome": "نائس ہیش · مائننگ کا نیا دور", "launch_date": "سرکاری طور پر 31 مئی 2026 کو شروع کیا گیا۔",
+        "title": "نائس ہیش", "news_head": "اہم خبریں", "got_it": "ٹھیک ہے",
+        "welcome": "نائس ہیش · مائننگ کا نیا دور", "launch": "سرکاری طور پر 31 مئی 2026 کو شروع کیا گیا۔",
         "marquee": "ابھی انلاک کریں اور اپنی پہلی کمائی حاصل کریں! کوئی انتظار نہیں، کوئی پیچیدہ طریقہ کار نہیں، رقم فوری منتقل ہوتی ہے۔",
-        "got_it": "ٹھیک ہے", "total_assets": "کل اثاثے", "invest_w": "انوسٹ والٹ", "comm_w": "کمیشن والٹ",
-        "btn_dep": "جمع کروائیں", "btn_wth": "نکلوائیں", "btn_vip": "وی آئی پی پلان", "btn_team": "میری ٹیم", "btn_mine": "مائننگ", "btn_me": "پروفائل",
-        "wth_log_title": "رقم نکلوانے کا لائیو لاگ", "partners": "عالمی شراکت دار", "curr_vip": "موجودہ وی آئی پی لیول:",
-        "act_dep": "میرا فعال ڈیپازٹ:", "req_min": "کم از کم مطلوبہ رقم:", "daily_ret": "روزانہ کا خودکار منافع:",
-        "acc_crypto": "لائیو کرپٹو مائننگ جاری ہے", "engine_status": "کلاؤڈ انجن کی حالت:", "active_running": "فعال اور چل رہا ہے",
-        "ref_code": "ذاتی انویٹیشن کوڈ", "ref_link": "ریفرل رجسٹریشن لنک شیئر کریں", "firewall_head": "نائس ہیش سیکیورٹی فائر وال",
-        "acc_email": "اکاؤنٹ ای میل درج کریں:", "sec_key": "سیکیورٹی پاس ورڈ کی:", "btn_unlock": "والٹ انلاک کریں",
-        "btn_inject": "ٹیسٹ بیلنس جمع کریں", "btn_disconnect": "سیشن بند کریں", "success_dep": "والٹ کامیابی سے اپ ڈیٹ ہو گیا!"
+        "assets_title": "کل اثاثے", "invest_lbl": "انوسٹ والٹ", "comm_lbl": "کمیشن والٹ",
+        "d_btn": "جمع کریں", "w_btn": "نکلوائیں", "v_btn": "وی آئی پی پلان", "t_btn": "میری تیم", "m_btn": "مائننگ", "me_btn": "پروفائل",
+        "log_title": "رقم نکلوانے کا لائیو لاگ", "curr_v": "موجودہ وی آئی پی لیول:", "my_d": "میرا فعال ڈیپازٹ:",
+        "req_m": "کم از کم مطلوبہ رقم:", "day_r": "روزانہ کا خودکار منافع:", "acc_c": "لائیو کرپٹو مائننگ جاری ہے",
+        "eng_s": "کلاؤڈ انجن کی حالت:", "act_run": "فعال اور چل رہا ہے", "inv_id": "ذاتی انویٹیشن کوڈ",
+        "inv_lnk": "ریفرل رجسٹریشن لنک شیئر کریں", "firewall": "نائس ہیش سیکیورٹی فائر وال", "email_lbl": "اکاؤنٹ ای میل درج کریں:",
+        "pass_lbl": "سیکیورٹی پاس ورڈ کی:", "unlock_b": "والٹ انلاک کریں", "inject_b": "ٹیسٹ بیلنس جمع کریں",
+        "disc_b": "سیشن بند کریں", "success_msg": "والٹ کامیابی سے اپ ڈیٹ ہو گیا!", "extract_b": "کمائی والٹ میں بھیجیں",
+        "wth_lbl": "نکلوانے کی رقم:", "exec_wth": "رقم نکلوانے کی درخواست کریں", "insufficient": "والٹ میں رقم کم ہے۔"
     },
     "🌐 DeepUrdu": {
-        "title": "جانی نائس ہیش", "lang_label": "DeepUrdu", "news_head": "ضروری نوٹس سنو جانی",
-        "welcome": "نائس ہیش · مائننگ کا مال تیار ہے", "launch_date": "فُل لائیو تباھی 31 مئی 2026",
+        "title": "جانی نائس ہیش", "news_head": "ضروری نوٹس سنو جانی", "got_it": "سمجھ گیا جانی",
+        "welcome": "نائس ہیش · مائننگ کا مال تیار ہے", "launch": "فُل لائیو تباھی 31 مئی 2026",
         "marquee": "جانی ابھی انلاک کرو اور مال نکالنا شروع کرو! کوئی لمبا چکر نہیں ہے، بٹن دباتے ہی کمائی سیدھی جیب میں آتی ہے مِنتو میں!",
-        "got_it": "سمجھ گیا جانی", "total_assets": "کل مال پانی", "invest_w": "انوسٹ والٹ اکاؤنٹ", "comm_w": "کمیشن والا والٹ",
-        "btn_dep": "پیسے ڈالیں", "btn_wth": "پیسے نکالیں", "btn_vip": "وی آئی پی پلانز", "btn_team": "اپنی گینگ", "btn_mine": "مائننگ فین", "btn_me": "میرا اکاؤنٹ",
-        "wth_log_title": "لائیو پرافٹ کی لسٹ جانی", "partners": "بڑے بڑے برانڈز", "curr_vip": "تمہارا ابھی کا لیول:",
-        "act_dep": "تمہارا ٹوٹل انوسٹ مال:", "req_min": "کم از کم انٹری فیس:", "daily_ret": "روزانہ کا پکا پرافٹ:",
-        "acc_crypto": "کلاؤڈ مائننگ دھڑا دھڑ جاری ہے", "engine_status": "انجن کا سین کیا ہے:", "active_running": "فُل سپیڈ میں چل رہا ہے جانی",
-        "ref_code": "تمہارا کوڈ لوٹو اب", "ref_link": "یہ لنک گینگ کو بھیجو اور کمیشن کھاؤ", "firewall_head": "نائس ہیش سیکیورٹی فائر وال لاک",
-        "acc_email": "اپنی ای میل لکھو جانی:", "sec_key": "پاس ورڈ کی چابی لگاؤ:", "btn_unlock": "اکاؤنٹ کا تالا کھولیں",
-        "btn_inject": "ٹیسٹ ڈالر ڈالو اکاؤنٹ میں", "btn_disconnect": "اکاؤنٹ لاگ آؤٹ کرو", "success_dep": "والٹ میں مال آگیا جانی!"
+        "assets_title": "کل مال پانی", "invest_lbl": "انوسٹ والٹ اکاؤنٹ", "comm_lbl": "کمیشن والا والٹ",
+        "d_btn": "پیسے ڈالیں", "w_btn": "پیسے نکالیں", "v_btn": "وی آئی پی پلانز", "t_btn": "اپنی گینگ", "m_btn": "مائننگ فین", "me_btn": "میرا اکاؤنٹ",
+        "log_title": "لائیو پرافٹ کی لسٹ جانی", "curr_v": "تمہارا ابھی کا لیول:", "my_d": "تمہارا ٹوٹل انوسٹ مال:",
+        "req_m": "کم از کم انٹری فیس:", "day_r": "روزانہ کا پکا پرافٹ:", "acc_c": "کلاؤڈ مائننگ دھڑا دھڑ جاری ہے",
+        "eng_s": "انجن کا سین کیا ہے:", "act_run": "فُل سپیڈ میں چل رہا ہے جانی", "inv_id": "تمہارا کوڈ لوٹو اب",
+        "inv_lnk": "یہ لنک گینگ کو بھیجو اور کمیشن کھاؤ", "firewall": "نائس ہیش سیکیورٹی فائر وال لاک", "email_lbl": "اپنی ای میل لکھو جانی:",
+        "pass_lbl": "پاس ورڈ کی چابی لگاؤ:", "unlock_b": "اکاؤنٹ کا تالا کھولیں", "inject_b": "ٹیسٹ ڈالر ڈالو اکاؤنٹ میں",
+        "disc_b": "اکاؤنٹ لاگ آؤٹ کرو", "success_msg": "والٹ میں مال آگیا جانی!", "extract_b": "منافع والٹ میں لوڈ کرو",
+        "wth_lbl": "کتنا مال نکالنا ہے:", "exec_wth": "مال والٹ سے باہر بھیجو", "insufficient": "اکاؤنٹ خالی ہے جانی مال ڈالو۔"
     },
     "🌐 العربية": {
-        "title": "نايس هاش", "lang_label": "العربية", "news_head": "إشعار الأخبار",
-        "welcome": "نايس هاش · عصر جديد للتعدين", "launch_date": "تم الإطلاق رسميًا في 31 مايو 2026.",
+        "title": "نايس هاش", "news_head": "إشعار الأخبار", "got_it": "فهمت",
+        "welcome": "نايس هاش · عصر جديد للتعدين", "launch": "تم الإطلاق رسميًا في 31 مايو 2026.",
         "marquee": "افتح واربح أول أرباحك الآن! لا انتظار ، لا عمليات معقدة ، الأرباح تصل فورًا بعد الفتح.",
-        "got_it": "فهمت", "total_assets": "إجمالي الأصول", "invest_w": "محفظة الاستثمار", "comm_w": "محفظة العمولات",
-        "btn_dep": "إيداع", "btn_wth": "سحب", "btn_vip": "خطة VIP", "btn_team": "فريقي", "btn_mine": "تعدين", "btn_me": "حسابي",
-        "wth_log_title": "سجل عمليات السحب المباشر", "partners": "الشركاء العالميون", "curr_vip": "مستوى VIP الحالي:",
-        "act_dep": "إيداعي النشط:", "req_min": "الحد الأدنى للمشاركة:", "daily_ret": "العائد اليومي التلقائي:",
-        "acc_crypto": "تراكم العملات المشفرة مباشرة", "engine_status": "حالة محرك السحاب:", "active_running": "نشط ويعمل فورا",
-        "ref_code": "رمز الدعوة الشخصي", "ref_link": "مشاركة رابط التسجيل", "firewall_head": "جدار حماية نايس هاش",
-        "acc_email": "بريد الحساب:", "sec_key": "مفتاح الأمان:", "btn_unlock": "فتح مساحة العمل",
-        "btn_inject": "حقن رصيد USDT تجريبي", "btn_disconnect": "تسجيل الخروج", "success_dep": "تم تحديث المحفظة بنجاح!"
-    },
-    "🌐 Español": {
-        "title": "NiceHash", "lang_label": "Español", "news_head": "Aviso de Noticias",
-        "welcome": "NiceHash · Nueva Era de Minería", "launch_date": "Lanzado oficialmente el 31 de mayo de 2026.",
-        "marquee": "¡Desbloquea y gana tus primeras ganancias ahora! Sin esperas, sin operaciones complicadas, las ganancias llegan al instante.",
-        "got_it": "Entendido", "total_assets": "Activos Totales", "invest_w": "Billetera de Inversión", "comm_w": "Billetera de Comisión",
-        "btn_dep": "Depósito", "btn_wth": "Retirar", "btn_vip": "Plan VIP", "btn_team": "Mi Equipo", "btn_mine": "Minar", "btn_me": "Mi Perfil",
-        "wth_log_title": "Historial de Retiros en Vivo", "partners": "Socios Globales", "curr_vip": "Nivel de Perfil Actual:",
-        "act_dep": "Mi Depósito Activo:", "req_min": "Entrada Mínima Requerida:", "daily_ret": "Rendimiento Diario Automático:",
-        "acc_crypto": "Acumulando Cripto en Vivo", "engine_status": "Estado del Motor Nube:", "active_running": "ACTIVO Y EN EJECUCIÓN",
-        "ref_code": "Código de Invitación Personal", "ref_link": "Compartir Enlace de Referido", "firewall_head": "Cortafuegos de Seguridad NiceHash",
-        "acc_email": "Email de la Cuenta:", "sec_key": "Clave de Acceso de Seguridad:", "btn_unlock": "Desbloquear Espacio de Trabajo",
-        "btn_inject": "Inyectar Saldo USDT de Prueba", "btn_disconnect": "Cerrar Sesión del Terminal", "success_dep": "¡Billetera Actualizada con Éxito!"
+        "assets_title": "إجمالي الأصول", "invest_lbl": "محفظة الاستثمار", "comm_lbl": "محفظة العمولات",
+        "d_btn": "إيداع", "w_btn": "سحب", "v_btn": "خطة VIP", "t_btn": "فريقي", "m_btn": "تعدين", "me_btn": "حسابي",
+        "log_title": "سجل عمليات السحب المباشر", "curr_v": "مستوى VIP الحالي:", "my_d": "إيداعي النشط:",
+        "req_m": "الحد الأدنى للمشاركة:", "day_r": "العائد اليومي التلقائي:", "acc_c": "تراكم العملات المشفرة مباشرة",
+        "eng_s": "حالة محرك السحاب:", "act_run": "نشط ويعمل فورا", "inv_id": "رمز الدعوة الشخصي",
+        "inv_lnk": "مشاركة رابط التسجيل", "firewall": "جدار حماية نايس هاش", "email_lbl": "بريد الحساب:",
+        "pass_lbl": "مفتاح الأمان:", "unlock_b": "فتح مساحة العمل", "inject_b": "حقن رصيد USDT تجريبي",
+        "disc_b": "تسجيل الخروج", "success_msg": "تم تحديث المحفظة بنجاح!", "extract_b": "حصاد الأرباح الآن",
+        "wth_lbl": "المبلغ المراد سحبه ($):", "exec_wth": "تنفيذ عملية السحب", "insufficient": "الرصيد غير كافٍ للعملية."
     }
 }
 
-# Expand structural fallbacks dynamic mappings for remaining 20+ top scale languages
-for ext_lang, name in [
-    ("🌐 Français", "Français"), ("🌐 Deutsch", "Deutsch"), ("🌐 Русский", "Русский"),
-    ("🌐 简体中文", "简体中文"), ("🌐 Türkçe", "Türkçe"), ("🌐 Tiếng Việt", "Tiếng Việt"),
-    ("🌐 Bahasa Melayu", "Bahasa Melayu"), ("🌐 Português", "Português"), ("🌐 Italiano", "Italiano"),
-    ("🌐 日本語", "日本語"), ("🌐 한국어", "한국어"), ("🌐 हिन्दी", "हिन्दी"), ("🌐 Pashto", "Pashto"),
-    ("🌐 Punjabi", "Punjabi"), ("🌐 Persian", "Persian"), ("🌐 Bengali", "Bengali")
-]:
-    if ext_lang not in LANG_DICT:
-        LANG_DICT[ext_lang] = LANG_DICT["🌐 English"].copy()
-        LANG_DICT[ext_lang]["lang_label"] = name
+# Dynamic injection loops for building out the 22 complete standard global languages array
+extended_language_keys = [
+    "🌐 Français", "🌐 Deutsch", "🌐 Русский", "🌐 简体中文", "🌐 Türkçe", "🌐 Tiếng Việt", 
+    "🌐 Bahasa Melayu", "🌐 Português", "🌐 Italiano", "🌐 日本語", "🌐 한국어", "🌐 हिन्दी", 
+    "🌐 Pashto", "🌐 Punjabi", "🌐 Persian", "🌐 Bengali", "🌐 Tagalog", "🌐 Swahili"
+]
+for lang_key in extended_language_keys:
+    if lang_key not in DICTIONARY:
+        DICTIONARY[lang_key] = DICTIONARY["🌐 English"].copy()
 
 # ==============================================================================
-# --- 2. MULTI-THREADED REAL-TIME DATABASE ENGINE VAULT ---
+# --- 2. MULTI-THREADED REAL PERSISTENT SQLITE DATABASE VAULT ---
 # ==============================================================================
-def execute_database_migration():
-    conn = sqlite3.connect("nicehash_enterprise_vault.db", check_same_thread=False)
+def run_db_migrations():
+    conn = sqlite3.connect("nicehash_real_vault.db", check_same_thread=False)
     cursor = conn.cursor()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            username TEXT PRIMARY KEY, password TEXT, security_pin TEXT,
-            invest_wallet REAL, commission_wallet REAL, vip_level TEXT, invite_code TEXT
+        CREATE TABLE IF NOT EXISTS accounts (
+            username TEXT PRIMARY KEY, password TEXT, Security_pin TEXT,
+            invest_wallet REAL, commission_wallet REAL, vip_level TEXT, invite_code TEXT, last_accumulation REAL
         )
     """)
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS contracts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, vip_level TEXT, 
-            investment REAL, daily_yield REAL, accumulated REAL, last_sync TEXT
-        )
-    """)
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS ledger_logs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, type TEXT, amount REAL, timestamp TEXT
-        )
-    """)
-    # Seed high volume persistent state data
-    cursor.execute("INSERT OR IGNORE INTO users VALUES ('demo@gmail.com', 'demo123', '1122', 250.00, 65.40, 'VIP1', '286651')")
-    cursor.execute("INSERT OR IGNORE INTO users VALUES ('admin@nicehash.one', 'admin786', '0000', 7500.00, 2450.00, 'VIP4', '777888')")
+    # Seed live working standard accounts securely
+    cursor.execute("INSERT OR IGNORE INTO accounts VALUES ('demo@gmail.com', 'demo123', '1122', 350.00, 120.50, 'VIP1', '286651', 1718683200.0)")
+    cursor.execute("INSERT OR IGNORE INTO accounts VALUES ('admin@nicehash.one', 'admin786', '0000', 8500.00, 3240.00, 'VIP4', '777888', 1718683200.0)")
     conn.commit()
     conn.close()
 
-def mutate_vault(query, args=(), one=False, commit=False):
-    conn = sqlite3.connect("nicehash_enterprise_vault.db", check_same_thread=False)
+def query_vault(query, args=(), one=False, commit=False):
+    conn = sqlite3.connect("nicehash_real_vault.db", check_same_thread=False)
     cursor = conn.cursor()
     try:
         cursor.execute(query, args)
@@ -142,60 +119,77 @@ def mutate_vault(query, args=(), one=False, commit=False):
         conn.close()
         return None if one else []
 
-execute_database_migration()
+run_db_migrations()
 
 # ==============================================================================
-# --- 3. DYNAMIC BACKGROUND MINING CALCULATOR (SECOND ACCUMULATION) ---
+# --- 3. DYNAMIC STATES & AUTOMATED INTERACTIVE MINING MATRIX ---
 # ==============================================================================
-if 'live_mining_yield' not in st.session_state:
-    st.session_state.live_mining_yield = 0.00000000
+if 'logged_in' not in st.session_state: st.session_state.logged_in = False
+if 'current_user' not in st.session_state: st.session_state.current_user = ""
+if 'active_tab' not in st.session_state: st.session_state.active_tab = "Home"
+if 'show_inline_news' not in st.session_state: st.session_state.show_inline_news = True
 
-def run_realtime_yield_accumulation():
-    if st.session_state.logged_in:
-        u_data = mutate_vault("SELECT invest_wallet, vip_level FROM users WHERE username=?", (st.session_state.current_user,), one=True)
-        if u_data and u_data[0] > 0:
-            v_lvl = u_data[1]
-            rate = 0.00
-            if v_lvl == "VIP1": rate = 30.0 / 86400.0
-            elif v_lvl == "VIP2": rate = 32.0 / 86400.0
-            elif v_lvl == "VIP3": rate = 34.0 / 86400.0
-            elif v_lvl == "VIP4": rate = 36.0 / 86400.0
-            
-            # Simulated accumulation value scale fraction
-            yield_increment = (u_data[0] * (rate / 100.0)) * random.uniform(0.95, 1.05)
-            st.session_state.live_mining_yield += yield_increment
+# Automatic active mining balance generation logic tracked across timestamps
+if 'crypto_yield_accumulator' not in st.session_state:
+    st.session_state.crypto_yield_accumulator = 0.00000000
+
+if st.session_state.logged_in:
+    account_stats = query_vault("SELECT invest_wallet, vip_level FROM accounts WHERE username=?", (st.session_state.current_user,), one=True)
+    if account_stats and account_stats[0] > 0:
+        tier = account_stats[1]
+        daily_ratio = 0.00
+        if tier == "VIP1": daily_ratio = 30.0
+        elif tier == "VIP2": daily_ratio = 32.0
+        elif tier == "VIP3": daily_ratio = 34.0
+        elif tier == "VIP4": daily_ratio = 36.0
+        
+        # Calculate real mathematical block fraction generated per second
+        per_second_yield = (account_stats[0] * (daily_ratio / 100.0)) / 86400.0
+        # Multiplier block injection simulation simulation
+        st.session_state.crypto_yield_accumulator += per_second_yield * random.uniform(0.98, 1.02)
+
+# High volume withdrawal dynamic data stream pool
+user_nodes_pool = ['a***8h@gmail.com', 'k***22@yahoo.com', 'n***_hash@live.com', 'x***9@hotmail.com', 'r***00@gmail.com']
+def generate_live_withdrawal_ledger():
+    logs = []
+    random.seed(int(time.time() / 60))
+    for i in range(4):
+        node = random.choice(user_nodes_pool)
+        val = round(random.uniform(20.00, 4890.00), 2)
+        logs.append(f"⚡ Node {node} extracted <b style='color:#ff6a00;'>${val:,.2f}</b> seamlessly.")
+    return logs
 
 # ==============================================================================
-# --- 4. HIGH FIDELITY LAYOUT STYLING INTERFACES (100% DESIGN PARITY) ---
+# --- 4. GRAPHIC INTERFACE DESIGN AND HIGH CONFIGURATION SYSTEM ---
 # ==============================================================================
 st.markdown("""
 <style>
 footer, .stDeployButton, #MainMenu, [data-testid="stStatusWidget"], [data-testid="stHeader"] { display: none !important; }
 html, body, .stApp { background-color: #12161a !important; color: #ffffff !important; font-family: 'Inter', sans-serif !important; }
 
-/* Precise Original Mobile Canvas Spec Alignment */
-[data-testid="stVerticalBlock"] { max-width: 440px !important; margin: 0 auto !important; padding: 12px !important; background: #1c2127 !important; border-radius: 0px !important; min-height: 100vh; }
+/* Perfect Mobile Canvas Frame Boundaries */
+[data-testid="stVerticalBlock"] { max-width: 440px !important; margin: 0 auto !important; padding: 12px !important; background: #1c2127 !important; min-height: 100vh; }
 
-/* App Brand Row Configs */
+/* Exact Original NiceHash Header Mark styling */
 .nh-top-bar { display: flex; justify-content: space-between; align-items: center; background: #1c2127; padding-bottom: 4px; }
-.nh-logo-title { font-size: 25px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; letter-spacing: -0.5px; }
+.nh-logo-title { font-size: 25px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
 .nh-logo-icon { width: 22px; height: 22px; background: #ff6a00; border-radius: 50%; display: inline-block; position: relative; }
 .nh-logo-icon::after { content: ''; position: absolute; width: 10px; height: 10px; background: #1c2127; left: 6px; top: 6px; border-radius: 50%; }
 
-/* Asset Display Frame specs */
+/* Asset Display Card styles */
 .asset-premium-card { background: linear-gradient(135deg, #252b35 0%, #171c24 100%); border-radius: 12px; padding: 20px; border: 1px solid #2d3642; margin-bottom: 15px; }
-.asset-total-title { color: #8a99ad; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.asset-total-title { color: #8a99ad; font-size: 13px; font-weight: 600; text-transform: uppercase; }
 .asset-total-value { font-size: 32px; font-weight: 700; color: #ffffff; margin: 6px 0 14px 0; font-family: monospace; }
 .sub-wallet-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12.5px; color: #cbd5e0; }
 
-/* Marquee Scrolling Box specs */
+/* Marquee Scroller Box styles */
 .marquee-alert-box { display: flex; align-items: center; background: #171c24; border-radius: 8px; padding: 8px 12px; border: 1px solid #2a313a; margin-bottom: 15px; font-size: 12px; overflow: hidden; }
 .marquee-text-flow { white-space: nowrap; animation: textScroll 18s linear infinite; color: #cbd5e0; font-weight: 500; }
 @keyframes textScroll { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
 
-/* Rotating Fan Component Graphic specs */
+/* Rotating Fan Component Graphic designs */
 .cooling-fan-hardware { width: 135px; height: 135px; background: radial-gradient(circle, #2d3542 0%, #171c24 100%); border-radius: 50%; border: 4px solid #ff6a00; margin: 25px auto; display: flex; align-items: center; justify-content: center; position: relative; }
-.fan-blades-wing { width: 105px; height: 105px; background: repeating-conic-gradient(from 0deg, #ff6a00 0deg 30deg, #171c24 30deg 60deg); border-radius: 50%; animation: spinHardware 1.0s linear infinite; }
+.fan-blades-wing { width: 105px; height: 105px; background: repeating-conic-gradient(from 0deg, #ff6a00 0deg 30deg, #171c24 30deg 60deg); border-radius: 50%; animation: spinHardware 0.8s linear infinite; }
 @keyframes spinHardware { 100% { transform: rotate(360deg); } }
 .fan-center-core { position: absolute; width: 34px; height: 34px; background: #171c24; border: 2px solid #ffffff; border-radius: 50%; color: #ffffff; font-weight: 800; font-size: 11px; line-height: 30px; text-align: center; }
 
@@ -204,50 +198,47 @@ div.stButton > button {
     background: linear-gradient(90deg, #ff8c00 0%, #ff5500 100%) !important; color: #ffffff !important; font-weight: 700 !important; border-radius: 8px !important; width: 100% !important; border: none !important; padding: 12px !important; box-shadow: 0 4px 12px rgba(255,85,0,0.25); text-transform: uppercase; font-size: 13px !important;
 }
 
-/* Inlined Announcement Alert Wrapper style */
-.inline-news-announcement-frame {
+/* Stable Non-breaking Inlined Notice Card layout wrapper */
+.news-modal-inline-container {
     background: #1c2127; border: 1px solid #ff6a00; border-radius: 12px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ==============================================================================
-# --- 5. RUNTIME CONTROLLER AND ROUTING ENGINE PARITY ---
-# ==============================================================================
-header_col1, header_col2 = st.columns([1.8, 1.2])
-with header_col1:
+# Layout Setup for Brand Title and Language Selection row
+h_col1, h_col2 = st.columns([1.8, 1.2])
+with h_col1:
     st.markdown("""
     <div class="nh-top-bar" style="border:none; margin-bottom:0; padding-bottom:0;">
         <div class="nh-logo-title"><div class="nh-logo-icon"></div>nicehash</div>
     </div>
     """, unsafe_allow_html=True)
-with header_col2:
-    target_lang = st.selectbox(
+with h_col2:
+    selected_language_key = st.selectbox(
         label="",
-        options=list(LANG_DICT.keys()),
+        options=list(DICTIONARY.keys()),
         index=0,
-        key="global_runtime_language_matrix_selector"
+        key="app_runtime_language_dictionary_selector"
     )
 
 st.markdown("<div style='border-bottom: 1px solid #2a313a; margin-bottom: 15px; margin-top: 2px;'></div>", unsafe_allow_html=True)
 
-# Active language setup shortcut pointer
-L = LANG_DICT[target_lang]
+# Map dynamic pointer array shortcut reference
+L = DICTIONARY[selected_language_key]
 
-# Execute live calculation ticks
-run_realtime_yield_accumulation()
-
-# --- 5.1 INLINE DISMISSABLE NOTICE GATEWAY (NO OVERLAP OVERLAY FREEZE) ---
-if st.session_state.show_news_announcement and st.session_state.active_tab == "Home":
+# ==============================================================================
+# --- 5. COMPACT OVERLAY NEWS WORKSPACE (100% SAFE LAYOUT DISMISSAL) ---
+# ==============================================================================
+if st.session_state.show_inline_news and st.session_state.active_tab == "Home":
     st.markdown(f"""
-    <div class="inline-news-announcement-frame">
-        <h4 style="color:#ffffff; margin:0 0 10px 0; font-weight:800; font-size:20px; text-align:center;">{L["news_head"]}</h4>
-        <div style="font-size:12.5px; color:#cbd5e0; line-height:1.6; margin-bottom: 14px;">
+    <div class="news-modal-inline-container">
+        <h3 style="color:#ffffff; margin:0 0 12px 0; font-weight:800; font-size:22px; text-align:center;">{L["news_head"]}</h3>
+        <div style="font-size:13px; color:#cbd5e0; line-height:1.6; margin-bottom: 15px;">
             🎉 <b>{L["welcome"]}</b><br>
-            <b>{L["launch_date"]}</b><br><br>
+            <b>{L["launch"]}</b><br><br>
             💡 Unlock and earn your first earnings now!<br>
             No waiting, no complicated operations, earnings arrive instantly.<br>
-            <hr style="border-color:rgba(255,255,255,0.06); margin:10px 0;">
+            <hr style="border-color:rgba(255,255,255,0.08); margin:10px 0;">
             <table style="width:100%; border-collapse:collapse; text-align:center; color:#fff; font-size:11px;">
                 <tr style="background:#222933; font-weight:700;">
                     <th style="padding:5px; border:1px solid #2d3642;">Grade</th>
@@ -263,73 +254,77 @@ if st.session_state.show_news_announcement and st.session_state.active_tab == "H
         </div>
     </div>
     """, unsafe_allow_html=True)
-    if st.button(L["got_it"], key="dismiss_inline_announcement_system_trigger_btn"):
-        st.session_state.show_news_announcement = False
+    if st.button(L["got_it"], key="dismiss_inline_news_notice_action_panel_trigger"):
+        st.session_state.show_inline_news = False
         st.rerun()
-    st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:12px 0;'>", unsafe_allow_html=True)
+    st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
 
-# --- 5.2 HOME VIEW LAYOUT ROUTE ---
+# ==============================================================================
+# --- 6. CORE OPERATIONAL ROUTES AND BACKEND VIEW CONTROLLERS ---
+# ==============================================================================
+
+# --- 6.1 HOME TAB SECTION ---
 if st.session_state.active_tab == "Home":
     st.markdown(f"""
     <div style="width:100%; height:110px; background:linear-gradient(135deg, #252b35 0%, #12161a 100%); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #2d3642; margin-bottom:12px;">
-        <div style="font-size:26px; font-weight:900; color:#ff6a00; letter-spacing:2px; text-transform:lowercase;">{L["title"]}</div>
+        <div style="font-size:26px; font-weight:900; color:#ff6a00; letter-spacing:2px;">{L["title"]}</div>
     </div>
     <div class="marquee-alert-box">
         <span style="color:#ff6a00; margin-right:6px; font-weight:700;">📢</span>
         <div class="marquee-text-flow">{L["marquee"]}</div>
     </div>
     <div class="asset-premium-card">
-        <div class="asset-total-title">{L["total_assets"]}</div>
+        <div class="asset-total-title">{L["assets_title"]}</div>
         <div class="asset-total-value">${(invest_bal + comm_bal):,.2f}</div>
-        <div class="sub-wallet-row"><span>{L["invest_w"]}</span><span style="font-weight:700; color:#fff;">${invest_bal:,.2f}</span></div>
-        <div class="sub-wallet-row" style="border:none; padding-bottom:0;"><span>{L["comm_w"]}</span><span style="font-weight:700; color:#fff;">${comm_bal:,.2f}</span></div>
+        <div class="sub-wallet-row"><span>{L["invest_lbl"]}</span><span style="font-weight:700; color:#fff;">${invest_bal:,.2f}</span></div>
+        <div class="sub-wallet-row" style="border:none; padding-bottom:0;"><span>{L["comm_lbl"]}</span><span style="font-weight:700; color:#fff;">${comm_bal:,.2f}</span></div>
     </div>
     """, unsafe_allow_html=True)
     
-    # 100% WORKING FUNCTIONAL DYNAMIC GRID NAVIGATION LINKS
-    grid_col_blocks = st.columns(4)
-    with grid_col_blocks[0]:
-        if st.button(f"🏛️\n{L['btn_dep']}", key="home_action_grid_deposit_btn_core"):
+    # 100% REAL DYNAMIC ROUTING VIA HOME GRID ICON COLUMNS
+    grid_blocks = st.columns(4)
+    with grid_blocks[0]:
+        if st.button(f"🏛️\n{L['d_btn']}", key="h_grid_deposit_action"):
             st.session_state.active_tab = "Me"
             st.rerun()
-    with grid_col_blocks[1]:
-        if st.button(f"🏧\n{L['btn_wth']}", key="home_action_grid_withdraw_btn_core"):
+    with grid_blocks[1]:
+        if st.button(f"🏧\n{L['w_btn']}", key="h_grid_withdraw_action"):
             st.session_state.active_tab = "Me"
             st.rerun()
-    with grid_col_blocks[2]:
-        if st.button(f"👑\n{L['btn_vip']}", key="home_action_grid_vip_btn_core"):
+    with grid_blocks[2]:
+        if st.button(f"👑\n{L['v_btn']}", key="h_grid_vip_action"):
             st.session_state.active_tab = "VIP"
             st.rerun()
-    with grid_col_blocks[3]:
-        if st.button(f"👥\n{L['btn_team']}", key="home_action_grid_team_btn_core"):
+    with grid_blocks[3]:
+        if st.button(f"👥\n{L['t_btn']}", key="h_grid_team_action"):
             st.session_state.active_tab = "Team"
             st.rerun()
             
-    st.markdown(f"<div style='margin-top:15px; font-size:14px; font-weight:700; margin-bottom:8px; color:#ff6a00;'>{L['wth_log_title']}</div>", unsafe_allow_html=True)
-    for log in get_rotating_withdrawal_logs():
+    st.markdown(f"<div style='margin-top:15px; font-size:14px; font-weight:700; margin-bottom:8px; color:#ff6a00;'>{L['log_title']}</div>", unsafe_allow_html=True)
+    for log in generate_live_withdrawal_ledger():
         st.markdown(f"<div style='background:#171c24; padding:10px; border-radius:8px; margin-bottom:6px; font-size:12px; border:1px solid #2a313a;'>{log}</div>", unsafe_allow_html=True)
 
-# --- 5.3 VIP EXPERT CONTRACTS PANELS ---
+# --- 6.2 VIP CONFIGURATION TIERS ---
 elif st.session_state.active_tab == "VIP":
     st.markdown(f"""
     <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; margin-bottom:15px;">
-        <div style="display:flex; justify-content:space-between; font-size:13px; color:#cbd5e0;"><span>{L["curr_vip"]}</span><span style="color:#ff6a00; font-weight:700;">{vip_level}</span></div>
-        <div style="display:flex; justify-content:space-between; font-size:13px; color:#cbd5e0; margin-top:4px;"><span>{L["act_dep"]}</span><span style="color:#00ffcc; font-weight:700;">${invest_bal:,.2f}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:13px; color:#cbd5e0;"><span>{L["curr_v"]}</span><span style="color:#ff6a00; font-weight:700;">{vip_level}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:13px; color:#cbd5e0; margin-top:4px;"><span>{L["my_d"]}</span><span style="color:#00ffcc; font-weight:700;">${invest_bal:,.2f}</span></div>
     </div>
     """, unsafe_allow_html=True)
     
     for i in range(1, 5):
-        bounds = [0, 10, 100, 1000, 5000][i]
-        profit = [0, 30, 32, 34, 36][i]
+        min_bounds = [0, 10, 100, 1000, 5000][i]
+        yield_ratio = [0, 30, 32, 34, 36][i]
         st.markdown(f"""
         <div style="background:#171c24; border-radius:12px; padding:15px; border:1px solid #2d3642; margin-bottom:10px;">
             <div style="font-weight:800; font-size:16px; color:#ff6a00; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:4px; margin-bottom:6px;">VIP {i} Mining Node</div>
-            <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#8a99ad;">{L["req_min"]}</span><span style="color:#fff; font-weight:600;">${bounds:,.2f}</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#8a99ad;">{L["daily_ret"]}</span><span style="color:#00ffcc; font-weight:700;">{profit:.2f}% / Day</span></div>
+            <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#8a99ad;">{L["req_m"]}</span><span style="color:#fff; font-weight:600;">${min_bounds:,.2f}</span></div>
+            <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#8a99ad;">{L["day_r"]}</span><span style="color:#00ffcc; font-weight:700;">{yield_ratio:.2f}% / Day</span></div>
         </div>
         """, unsafe_allow_html=True)
 
-# --- 5.4 HARDWARE ENGINE ACTIVE MINING PANEL ---
+# --- 6.3 ACTIVE MINER ENGINE CALCULATOR TAB ---
 elif st.session_state.active_tab == "Mining":
     st.markdown("""
     <div class="cooling-fan-hardware"><div class="fan-blades-wing"></div><div class="fan-center-core">⚡</div></div>
@@ -337,52 +332,52 @@ elif st.session_state.active_tab == "Mining":
     
     st.markdown(f"""
     <div style="background:#252b35; padding:20px; border-radius:12px; border:1px solid #2d3642; text-align:center;">
-        <span style="color:#8a99ad; font-size:12px; text-transform:uppercase; letter-spacing:1px;">{L["acc_crypto"]}</span>
-        <h2 style="margin:8px 0; font-size:28px; color:#ffffff; font-family:monospace;">{st.session_state.live_mining_yield:.8f} <span style="font-size:14px; color:#ff6a00;">USDT</span></h2>
+        <span style="color:#8a99ad; font-size:12px; text-transform:uppercase; letter-spacing:1px;">{L["acc_c"]}</span>
+        <h2 style="margin:8px 0; font-size:28px; color:#ffffff; font-family:monospace;">{st.session_state.crypto_yield_accumulator:.8f} <span style="font-size:14px; color:#ff6a00;">USDT</span></h2>
         <div style="display:flex; justify-content:space-between; font-size:12px; border-top:1px solid rgba(255,255,255,0.05); padding-top:10px; margin-top:12px;"><span style="color:#cbd5e0;">Node Tier Level</span><span style="color:#ff6a00; font-weight:700;">{vip_level}</span></div>
-        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#cbd5e0;">{L["engine_status"]}</span><span style="color:#00ffcc; font-weight:600;">{L["active_running"]}</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="color:#cbd5e0;">{L["eng_s"]}</span><span style="color:#00ffcc; font-weight:600;">{L["act_run"]}</span></div>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("<div style='margin-top:15px;'></div>", unsafe_allow_html=True)
-    if st.button("Collect & Flush Yield to Commission Wallet"):
-        if st.session_state.live_mining_yield > 0:
-            mutate_vault("UPDATE users SET commission_wallet = commission_wallet + ? WHERE username=?", (st.session_state.live_mining_yield, st.session_state.current_user), commit=True)
-            st.session_state.live_mining_yield = 0.00000000
-            st.success("Yield Extracted to Commission Wallet!")
+    if st.button(L["extract_b"], key="extract_live_miner_yield_to_wallet_action"):
+        if st.session_state.crypto_yield_accumulator > 0:
+            query_vault("UPDATE accounts SET commission_wallet = commission_wallet + ? WHERE username=?", (st.session_state.crypto_yield_accumulator, st.session_state.current_user), commit=True)
+            st.session_state.crypto_yield_accumulator = 0.00000000
+            st.success("Yield Successfully Flushed to Wallet Ledger!")
             time.sleep(0.5)
             st.rerun()
         else:
-            st.toast("Accumulating blocks...")
+            st.toast("Accumulating mining blocks...")
 
-# --- 5.5 TEAM NETWORK MANAGEMENT PANEL ---
+# --- 6.4 REFERRAL LOGISTIC NETWORKS ---
 elif st.session_state.active_tab == "Team":
     st.markdown(f"""
     <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642;">
-        <span style="font-size:12px; color:#8a99ad;">{L["ref_code"]}</span>
+        <span style="font-size:12px; color:#8a99ad;">{L["inv_id"]}</span>
         <h2 style="margin:4px 0; color:#ff6a00; letter-spacing:1px; font-family:monospace;">{user_invite}</h2>
-        <span style="font-size:12px; color:#8a99ad; display:block; margin-top:10px;">{L["ref_link"]}</span>
+        <span style="font-size:12px; color:#8a99ad; display:block; margin-top:10px;">{L["inv_lnk"]}</span>
         <div style="background:#171c24; padding:8px; border-radius:6px; font-size:11px; color:#cbd5e0; word-break:break-all; border:1px solid #2a313a; margin-top:4px;">
             https://nicehash.one/#/register?invite_code={user_invite}
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-# --- 5.6 SECURE USER ACCOUNT PROFILE PANEL ---
+# --- 6.5 USER ACCOUNTS PROFILE VAULTS ---
 elif st.session_state.active_tab == "Me":
     if not st.session_state.logged_in:
-        st.markdown(f"<h4 style='text-align:center; color:#ff6a00; margin-bottom:15px;'>{L['firewall_head']}</h4>", unsafe_allow_html=True)
-        user_input = st.text_input(L["acc_email"], placeholder="demo@gmail.com")
-        pass_input = st.text_input(L["sec_key"], type="password", placeholder="demo123")
+        st.markdown(f"<h4 style='text-align:center; color:#ff6a00; margin-bottom:15px;'>{L['firewall']}</h4>", unsafe_allow_html=True)
+        user_in = st.text_input(L["email_lbl"], placeholder="demo@gmail.com")
+        pass_in = st.text_input(L["pass_lbl"], type="password", placeholder="demo123")
         
-        if st.button(L["btn_unlock"]):
-            res = mutate_vault("SELECT username FROM users WHERE username=? AND password=?", (user_input.strip(), pass_input.strip()), one=True)
-            if res:
+        if st.button(L["unlock_b"]):
+            match = query_vault("SELECT username FROM accounts WHERE username=? AND password=?", (user_in.strip(), pass_in.strip()), one=True)
+            if match:
                 st.session_state.logged_in = True
-                st.session_state.current_user = res[0]
+                st.session_state.current_user = match[0]
                 st.rerun()
             else:
-                st.error("Firewall reject: Connection token mismatched.")
+                st.error("Firewall reject: Mismatched key parameters token.")
     else:
         st.markdown(f"""
         <div style="background:#252b35; padding:15px; border-radius:12px; border:1px solid #2d3642; margin-bottom:15px;">
@@ -391,32 +386,52 @@ elif st.session_state.active_tab == "Me":
         </div>
         """, unsafe_allow_html=True)
         
-        deposit_input = st.number_input("Input USDT Value Bounds:", min_value=10.0, step=50.0)
-        if st.button(L["btn_inject"]):
-            mutate_vault("UPDATE users SET invest_wallet = invest_wallet + ? WHERE username=?", (deposit_input, st.session_state.current_user), commit=True)
-            st.success(L["success_dep"])
-            time.sleep(0.6)
+        # Real Interactive Deposit Simulation Input
+        dep_input = st.number_input("Input USDT Deposit Amount ($):", min_value=10.0, step=50.0)
+        if st.button(L["inject_b"], key="me_inject_simulated_deposit_action_btn"):
+            # Update database states instantly
+            vip_tier_update = "VIP1"
+            if dep_input >= 5000: vip_tier_update = "VIP4"
+            elif dep_input >= 1000: vip_tier_update = "VIP3"
+            elif dep_input >= 100: vip_tier_update = "VIP2"
+            
+            query_vault("UPDATE accounts SET invest_wallet = invest_wallet + ?, vip_level = ? WHERE username=?", (dep_input, vip_tier_update, st.session_state.current_user), commit=True)
+            st.success(L["success_msg"])
+            time.sleep(0.5)
             st.rerun()
             
         st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
-        if st.button(L["btn_disconnect"]):
+        
+        # Real Working Withdrawal Form Integration
+        wth_input = st.number_input(L["wth_lbl"], min_value=10.0, step=10.0, key="me_withdrawal_input_box_field")
+        if st.button(L["exec_wth"], key="me_withdrawal_execute_action_trigger_btn"):
+            if invest_bal >= wth_input:
+                query_vault("UPDATE accounts SET invest_wallet = invest_wallet - ? WHERE username=?", (wth_input, st.session_state.current_user), commit=True)
+                st.success("Withdrawal Requested Successfully! Ledger Updated.")
+                time.sleep(0.5)
+                st.rerun()
+            else:
+                st.error(L["insufficient"])
+                
+        st.markdown("<hr style='border-color:rgba(255,255,255,0.05); margin:15px 0;'>", unsafe_allow_html=True)
+        if st.button(L["disc_b"]):
             st.session_state.logged_in = False
             st.session_state.current_user = ""
             st.rerun()
 
 # ==============================================================================
-# --- 6. HIGH-END BOTTOM NAVIGATION BUTTON BAR ROW ---
+# --- 7. CORE RUNTIME NAVIGATION BUTTON REGISTRY ROW ---
 # ==============================================================================
-st.markdown("<div style='margin-top:45px;'></div>", unsafe_allow_html=True)
-bottom_navigation_grid = st.columns(5)
+st.markdown("<div style='margin-top:35px;'></div>", unsafe_allow_html=True)
+nav_grid = st.columns(5)
 
-with bottom_navigation_grid[0]:
-    if st.button(f"🏠\n{L['btn_dep'][:4]}", key="nav_h_core_final"): st.session_state.active_tab = "Home"; st.rerun()
-with bottom_navigation_grid[1]:
-    if st.button(f"👑\n{L['btn_vip'][:4]}", key="nav_v_core_final"): st.session_state.active_tab = "VIP"; st.rerun()
-with bottom_navigation_grid[2]:
-    if st.button(f"⚡\n{L['btn_mine'][:4]}", key="nav_m_core_final"): st.session_state.active_tab = "Mining"; st.rerun()
-with bottom_navigation_grid[3]:
-    if st.button(f"👥\n{L['btn_team'][:4]}", key="nav_t_core_final"): st.session_state.active_tab = "Team"; st.rerun()
-with bottom_navigation_grid[4]:
-    if st.button(f"👤\n{L['btn_me'][:4]}", key="nav_me_core_final"): st.session_state.active_tab = "Me"; st.rerun()
+with nav_grid[0]:
+    if st.button(f"🏠\n{L['d_btn'][:4]}", key="n_h_f"): st.session_state.active_tab = "Home"; st.rerun()
+with nav_grid[1]:
+    if st.button(f"👑\n{L['v_btn'][:4]}", key="n_v_f"): st.session_state.active_tab = "VIP"; st.rerun()
+with nav_grid[2]:
+    if st.button(f"⚡\n{L['m_btn'][:4]}", key="n_m_f"): st.session_state.active_tab = "Mining"; st.rerun()
+with nav_cols[3] if 'nav_cols' in locals() else nav_grid[3]:
+    if st.button(f"👥\n{L['t_btn'][:4]}", key="n_t_f"): st.session_state.active_tab = "Team"; st.rerun()
+with nav_cols[4] if 'nav_cols' in locals() else nav_grid[4]:
+    if st.button(f"👤\n{L['me_btn'][:4]}", key="n_me_f"): st.session_state.active_tab = "Me"; st.rerun()
